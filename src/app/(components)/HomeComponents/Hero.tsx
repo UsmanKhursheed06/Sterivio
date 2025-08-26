@@ -16,7 +16,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-black/50" />
 
       {/* Hero Content */}
-      <div className="ml-15 relative z-10 flex h-full flex-col items-center md:items-start justify-center text-center md:text-left text-white px-6">
+      <div className= "sm:ml-0 lg:ml-15 md:ml-10 relative z-10 flex h-full flex-col items-center md:items-start justify-center text-center md:text-left text-white px-6">
         <h1 className="mt-10 text-3xl sm:text-5xl md:text-7xl font-bold max-w-4xl leading-tight">
           Precision-Crafted Surgical Instruments, Delivered Globally
         </h1>
