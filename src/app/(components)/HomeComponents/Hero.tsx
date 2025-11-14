@@ -1,81 +1,91 @@
+'use client';
+
 import Image from "next/image";
+import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import { cn } from "@/lib/utils";
+import { CheckCircle, ClipboardCheck, Globe } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen w-full">
-      {/* Background Image */}
-      <Image
-        src="/back3.png"
-        alt="Hero Background"
-        fill
-        priority
-        className="object-cover"
-      />
-
-      {/* Overlay for contrast */}
-      <div className="absolute inset-0 bg-black/50" />
-
-      {/* Hero Content */}
-      <div className= "sm:ml-0 lg:ml-15 md:ml-10 relative z-10 flex h-full flex-col items-center md:items-start justify-center text-center md:text-left text-white px-6">
-        <h1 className="mt-10 text-3xl sm:text-5xl md:text-7xl font-bold max-w-4xl leading-tight">
-          Precision-Crafted Surgical Instruments, Delivered Globally
-        </h1>
-
-        <p className="mt-6 max-w-2xl text-base sm:text-lg text-gray-200">
-          ISO, CE Certified Manufacturer of High-Quality Surgical Instruments.
-          Explore Our Extensive Range of Precision Tools for Medical Professionals Worldwide.
-        </p>
-
-        {/* Buttons */}
-        <div className="mt-8 flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center md:justify-start">
-          <button className="rounded-3xl bg-white px-6 py-3 font-semibold text-black hover:bg-gray-200 transition">
-            View Catalog
-          </button>
-          <button className="rounded-3xl border border-white px-6 py-3 font-semibold text-white hover:bg-white/10 transition">
-            Request a Quote
-          </button>
+    <ScrollExpandMedia
+      mediaType="video"
+      mediaSrc="/videos/Hailuo.mp4"
+      bgImageSrc="/images/bg-vid2.png"
+      textBlend={false}
+      title="Precision-Crafted Instruments, Delivered Globally"
+      scrollToExpand="Scroll to explore"
+    >
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Welcome Section */}
+        <div className="mb-20 text-center">
+          <h2 className="text-4xl md:text-6xl font-bold text-black">
+            Welcome to Sterivio
+          </h2>
         </div>
 
-        {/* Icons Row */}
-        <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
-          <div className="flex flex-col items-center text-center">
-            <Image
-              src="/iso.png"
-              alt="Certified Quality"
-              width={50}
-              height={50}
-              className="mb-2"
-            />
-          </div>
-          <div className="flex flex-col items-center text-center">
-            <Image
-              src="/fda2.png"
-              alt="Global Reach"
-              width={50}
-              height={50}
-              className="mb-2"
-            />
-          </div>
-          <div className="flex flex-col items-center text-center">
-            <Image
-              src="/gmp.png"
-              alt="In-House Production"
-              width={50}
-              height={50}
-              className="mb-2"
-            />
-          </div>
-          <div className="flex flex-col items-center text-center">
-            <Image
-              src="/ce.png"
-              alt="Trusted Worldwide"
-              width={50}
-              height={50}
-              className="mb-2"
-            />
+        {/* Features Grid with Glowing Effect */}
+        <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-2 lg:gap-4">
+          <GridItem
+            area="md:[grid-area:1/1/2/5]"
+            icon={<CheckCircle className="h-4 w-4" />}
+            title="Quality Engineering"
+            description="Crafted from medical-grade stainless steel, Sterivio's veterinary and grooming instruments deliver precise performance and long-term durability trusted by professionals worldwide."
+          />
+          <GridItem
+            area="md:[grid-area:1/5/2/9]"
+            icon={<ClipboardCheck className="h-4 w-4" />}
+            title="Precision Assurance"
+            description="Each instrument undergoes a multi-stage inspection and quality-control process to ensure accuracy, balance, and consistency before shipment."
+          />
+          <GridItem
+            area="md:[grid-area:1/9/2/13]"
+            icon={<Globe className="h-4 w-4" />}
+            title="Global Fulfillment"
+            description="With U.S.-based distribution and worldwide export capability, Sterivio guarantees reliable delivery and compliance for clinics, hospitals, and grooming facilities."
+          />
+        </ul>
+      </div>
+    </ScrollExpandMedia>
+  );
+}
+
+interface GridItemProps {
+  area: string;
+  icon: React.ReactNode;
+  title: string;
+  description: React.ReactNode;
+}
+
+const GridItem = ({ area, icon, title, description }: GridItemProps) => {
+  return (
+    <li className={cn("min-h-[10rem] list-none", area)}>
+      <div className="relative h-full rounded-[1.25rem] border-[0.75px] border-border p-2 md:rounded-[1.5rem] md:p-3">
+        <GlowingEffect
+          spread={40}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+          borderWidth={3}
+        />
+        <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border-[0.75px] bg-background p-6 shadow-sm dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)] md:p-6">
+          <div className="relative flex flex-1 flex-col justify-between gap-3">
+            <div className="w-fit rounded-lg border-[0.75px] border-border bg-muted p-2">
+              {icon}
+            </div>
+            <div className="space-y-3">
+              <h3 className="pt-0.5 text-xl leading-[1.375rem] font-semibold font-sans tracking-[-0.04em] md:text-2xl md:leading-[1.875rem] text-balance text-foreground">
+                {title}
+              </h3>
+              <h2 className="[&_b]:md:font-semibold [&_strong]:md:font-semibold font-sans text-sm leading-[1.125rem] md:text-base md:leading-[1.375rem] text-muted-foreground">
+                {description}
+              </h2>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </li>
   );
-}
+};
