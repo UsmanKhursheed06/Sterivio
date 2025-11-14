@@ -1,9 +1,7 @@
 'use client';
 
-import Image from "next/image";
 import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { cn } from "@/lib/utils";
 import { CheckCircle, ClipboardCheck, Globe } from "lucide-react";
 
