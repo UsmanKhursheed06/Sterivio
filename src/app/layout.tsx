@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "./(components)/NavigationComponents/navbar";
 import Footer from "./(components)/NavigationComponents/footer";
+import LenisProvider from "@/components/providers/LenisProvider";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,9 +16,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <Navbar />
-        {children}
-        <Footer />
+        <LenisProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </LenisProvider>
       </body>
     </html>
   );

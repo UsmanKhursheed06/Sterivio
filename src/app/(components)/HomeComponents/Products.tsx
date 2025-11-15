@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { memo } from "react";
 
 const productCategories = [
   {
@@ -16,10 +17,6 @@ const productCategories = [
   {
     title: "Diagnostic Equipment",
     description: "Advanced diagnostic instruments that deliver accurate results, helping veterinary professionals make informed decisions.",
-  },
-  {
-    title: "Dental Instruments",
-    description: "Specialized dental tools engineered for precision cleaning, scaling, and oral care in veterinary dentistry.",
   },
 ];
 
@@ -56,9 +53,9 @@ const popularProducts = [
 //   },
 ];
 
-export default function Products() {
+const Products = memo(function Products() {
   return (
-    <section className="relative w-full bg-background py-24 overflow-hidden">
+    <section id="products" className="relative w-full bg-background py-24 overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/5 to-background" />
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -195,4 +192,6 @@ export default function Products() {
       </div>
     </section>
   );
-}
+});
+
+export default Products;

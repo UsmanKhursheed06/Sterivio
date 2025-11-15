@@ -1,9 +1,64 @@
 "use client";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 
 export default function Footer() {
+  const scrollToSection = (sectionId: string) => {
+    const lenis = (window as any).lenis;
+    
+    // If we're at the top and hero is not expanded, expand it first
+    if (window.scrollY < 10 && sectionId !== "hero") {
+      const expandFunc = (window as any).expandHeroAndNavigate;
+      if (expandFunc) {
+        expandFunc(() => {
+          setTimeout(() => {
+            const element = document.getElementById(sectionId);
+            if (element) {
+              if (lenis) {
+                lenis.scrollTo(element, { offset: -100, duration: 1.5 });
+              } else {
+                const offset = 100;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - offset;
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: "smooth",
+                });
+              }
+            }
+          }, 100);
+        });
+        return;
+      }
+    }
+    
+    // Normal scroll
+    if (sectionId === "hero") {
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.5 });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      return;
+    }
+    
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        if (lenis) {
+          lenis.scrollTo(element, { offset: -100, duration: 1.5 });
+        } else {
+          const offset = 100;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - offset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }
+    }, 100);
+  };
   return (
     <footer className="relative bg-card border-t border-border text-muted-foreground py-14 mt-1">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -28,10 +83,26 @@ export default function Footer() {
         >
           <h3 className="text-lg font-semibold font-sans text-foreground mb-4">Quick Links</h3>
           <ul className="space-y-2">
-            <li><Link href="/" className="hover:text-primary transition font-sans">Home</Link></li>
-            <li><Link href="/about" className="hover:text-primary transition font-sans">About Us</Link></li>
-            <li><Link href="/catalog" className="hover:text-primary transition font-sans">Catalog</Link></li>
-            <li><Link href="/contact" className="hover:text-primary transition font-sans">Contact</Link></li>
+            <li>
+              <button onClick={() => scrollToSection("hero")} className="hover:text-primary transition font-sans">
+                Home
+              </button>
+            </li>
+            <li>
+              <button onClick={() => scrollToSection("about")} className="hover:text-primary transition font-sans">
+                Why Us?
+              </button>
+            </li>
+            <li>
+              <button onClick={() => scrollToSection("products")} className="hover:text-primary transition font-sans">
+                Products
+              </button>
+            </li>
+            <li>
+              <button onClick={() => scrollToSection("quote")} className="hover:text-primary transition font-sans">
+                Request Quote
+              </button>
+            </li>
           </ul>
         </motion.div>
 
@@ -43,11 +114,9 @@ export default function Footer() {
         >
           <h3 className="text-lg font-semibold font-sans text-foreground mb-4">Our Niches</h3>
           <ul className="space-y-2">
-            <li><a href="#veterinary-surgical-instruments" className="hover:text-primary transition font-sans">Veterinary</a></li>
-            <li><a href="#dental-surgical-instruments" className="hover:text-primary transition font-sans">Dental</a></li>
-            <li><a href="#plastic-surgery-instruments" className="hover:text-primary transition font-sans">Plastic Surgery</a></li>
-            <li><a href="#general-surgery-instruments" className="hover:text-primary transition font-sans">General Surgery</a></li>
-            <li><a href="#orthopedic-surgery-instruments" className="hover:text-primary transition font-sans">Orthopedic</a></li>
+            <li className="text-sm font-sans leading-relaxed">
+              <span className="font-semibold text-foreground">Veterinary:</span> Specialized surgical instruments and grooming tools for veterinary professionals, crafted from medical-grade stainless steel for optimal performance in animal care.
+            </li>
           </ul>
         </motion.div>
 
@@ -57,8 +126,8 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <h3 className="text-lg font-semibold font-sans text-foreground mb-4">Contact Us</h3>
-          <ul className="space-y-3 text-sm font-sans">
+          <h3 className="text-lg font-semibold font-sans text-foreground mb-4 ml-10">Contact Us</h3>
+          <ul className="space-y-3 text-sm font-sans ml-10">
             <li className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-primary" /> info@sterivio.com
             </li>
@@ -71,7 +140,7 @@ export default function Footer() {
           </ul>
 
           {/* Social Links */}
-          <div className="flex gap-4 mt-6">
+          <div className="flex gap-4 mt-6 ml-10">
             <a href="#" className="p-2 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition">
               <Facebook className="w-5 h-5" />
             </a>

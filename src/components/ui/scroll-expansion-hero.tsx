@@ -7,9 +7,11 @@ import {
   ReactNode,
   type TouchEvent,
   type WheelEvent,
+  useCallback,
 } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { rafThrottle } from '@/lib/performance-utils';
 
 interface ScrollExpandMediaProps {
   mediaType?: 'video' | 'image';
@@ -39,8 +41,63 @@ const ScrollExpandMedia = ({
   const [mediaFullyExpanded, setMediaFullyExpanded] = useState<boolean>(false);
   const [touchStartY, setTouchStartY] = useState<number>(0);
   const [isMobileState, setIsMobileState] = useState<boolean>(false);
+  const [isAutoExpanding, setIsAutoExpanding] = useState<boolean>(false);
 
   const sectionRef = useRef<HTMLDivElement | null>(null);
+
+  // Expose expand function globally
+  useEffect(() => {
+    const lenis = (window as any).lenis;
+    
+    (window as any).expandHeroAndNavigate = (callback: () => void) => {
+      if (mediaFullyExpanded) {
+        callback();
+        return;
+      }
+      
+      setIsAutoExpanding(true);
+      
+      // Smoothly animate progress from current to 1
+      const startProgress = scrollProgress;
+      const duration = 800; // ms
+      const startTime = Date.now();
+      let rafId: number;
+      
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+        const easedProgress = easeOutCubic(progress);
+        
+        const newProgress = startProgress + (1 - startProgress) * easedProgress;
+        setScrollProgress(newProgress);
+        
+        if (newProgress >= 1) {
+          setMediaFullyExpanded(true);
+          setShowContent(true);
+          setIsAutoExpanding(false);
+          
+          // Wait a bit for the expansion to complete, then navigate
+          setTimeout(callback, 300);
+        } else {
+          rafId = requestAnimationFrame(animate);
+        }
+      };
+      
+      rafId = requestAnimationFrame(animate);
+      
+      // Cleanup function
+      return () => {
+        if (rafId) cancelAnimationFrame(rafId);
+      };
+    };
+    
+    return () => {
+      delete (window as any).expandHeroAndNavigate;
+    };
+  }, [scrollProgress, mediaFullyExpanded]);
 
   // Reset on media type change
   useEffect(() => {
@@ -49,28 +106,62 @@ const ScrollExpandMedia = ({
     setMediaFullyExpanded(false);
   }, [mediaType]);
 
-  // Handle scroll and touch events
+  // Handle scroll and touch events - optimized with RAF throttling
   useEffect(() => {
+    const lenis = (window as any).lenis;
+    let rafId: number | null = null;
+    let pendingScrollDelta = 0;
+
+    const processScroll = () => {
+      if (pendingScrollDelta === 0) {
+        rafId = null;
+        return;
+      }
+
+      const newProgress = Math.min(
+        Math.max(scrollProgress + pendingScrollDelta, 0),
+        1
+      );
+      setScrollProgress(newProgress);
+
+      if (newProgress >= 1) {
+        setMediaFullyExpanded(true);
+        setShowContent(true);
+      } else if (newProgress < 0.75) {
+        setShowContent(false);
+      }
+
+      pendingScrollDelta = 0;
+      rafId = null;
+    };
+
+    const scheduleUpdate = () => {
+      if (rafId === null) {
+        rafId = requestAnimationFrame(processScroll);
+      }
+    };
+
     const handleWheel = (e: Event) => {
       const wheelEvent = e as unknown as WheelEvent;
+      
+      // Don't interfere during auto-expansion
+      if (isAutoExpanding) {
+        e.preventDefault();
+        return;
+      }
+      
+      // Only capture scroll if we're at the top of the page and not fully expanded
+      if (window.scrollY > 10) {
+        return; // Allow normal scrolling when not at top
+      }
+      
       if (mediaFullyExpanded && wheelEvent.deltaY < 0 && window.scrollY <= 5) {
         setMediaFullyExpanded(false);
         e.preventDefault();
-      } else if (!mediaFullyExpanded) {
+      } else if (!mediaFullyExpanded && window.scrollY <= 10) {
         e.preventDefault();
-        const scrollDelta = wheelEvent.deltaY * 0.0009;
-        const newProgress = Math.min(
-          Math.max(scrollProgress + scrollDelta, 0),
-          1
-        );
-        setScrollProgress(newProgress);
-
-        if (newProgress >= 1) {
-          setMediaFullyExpanded(true);
-          setShowContent(true);
-        } else if (newProgress < 0.75) {
-          setShowContent(false);
-        }
+        pendingScrollDelta += wheelEvent.deltaY * 0.0009;
+        scheduleUpdate();
       }
     };
 
@@ -82,6 +173,17 @@ const ScrollExpandMedia = ({
     const handleTouchMove = (e: Event) => {
       if (!touchStartY) return;
 
+      // Don't interfere during auto-expansion
+      if (isAutoExpanding) {
+        e.preventDefault();
+        return;
+      }
+
+      // Only capture touch if we're at the top of the page
+      if (window.scrollY > 10) {
+        return; // Allow normal scrolling when not at top
+      }
+
       const touchEvent = e as unknown as TouchEvent;
       const touchY = touchEvent.touches[0].clientY;
       const deltaY = touchStartY - touchY;
@@ -89,23 +191,11 @@ const ScrollExpandMedia = ({
       if (mediaFullyExpanded && deltaY < -20 && window.scrollY <= 5) {
         setMediaFullyExpanded(false);
         e.preventDefault();
-      } else if (!mediaFullyExpanded) {
+      } else if (!mediaFullyExpanded && window.scrollY <= 10) {
         e.preventDefault();
         const scrollFactor = deltaY < 0 ? 0.008 : 0.005;
-        const scrollDelta = deltaY * scrollFactor;
-        const newProgress = Math.min(
-          Math.max(scrollProgress + scrollDelta, 0),
-          1
-        );
-        setScrollProgress(newProgress);
-
-        if (newProgress >= 1) {
-          setMediaFullyExpanded(true);
-          setShowContent(true);
-        } else if (newProgress < 0.75) {
-          setShowContent(false);
-        }
-
+        pendingScrollDelta += deltaY * scrollFactor;
+        scheduleUpdate();
         setTouchStartY(touchY);
       }
     };
@@ -114,37 +204,51 @@ const ScrollExpandMedia = ({
       setTouchStartY(0);
     };
 
-    const handleScroll = (): void => {
-      if (!mediaFullyExpanded) {
-        window.scrollTo(0, 0);
+    const handleScroll = rafThrottle((): void => {
+      // Don't interfere during auto-expansion
+      if (isAutoExpanding) {
+        return;
       }
-    };
+      
+      // Only lock scroll to top if we're not fully expanded and near the top
+      if (!mediaFullyExpanded && window.scrollY < 10 && window.scrollY > 0) {
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true, force: true });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }
+    });
 
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('touchstart', handleTouchStart, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [scrollProgress, mediaFullyExpanded, touchStartY]);
+  }, [scrollProgress, mediaFullyExpanded, touchStartY, isAutoExpanding]);
 
-  // Check if mobile
+  // Check if mobile - optimized with RAF throttle
   useEffect(() => {
     const checkIfMobile = (): void => {
       setIsMobileState(window.innerWidth < 768);
     };
 
     checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
+    const handleResize = rafThrottle(checkIfMobile);
+    window.addEventListener('resize', handleResize, { passive: true });
 
-    return () => window.removeEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const mediaWidth = 300 + scrollProgress * (isMobileState ? 650 : 1250);
