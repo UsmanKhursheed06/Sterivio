@@ -159,7 +159,7 @@ const ScrollExpandMedia = ({
       ref={sectionRef}
       className='transition-colors duration-700 ease-in-out overflow-x-hidden'
       style={{
-        backgroundColor: mediaFullyExpanded ? '#ffffff' : 'transparent',
+        backgroundColor: mediaFullyExpanded ? 'var(--background)' : 'transparent',
         transition: 'background-color 0.7s ease-in-out',
       }}
     >
@@ -283,7 +283,7 @@ const ScrollExpandMedia = ({
                 <div className='flex flex-col items-center text-center relative z-10 mt-4 transition-none'>
                   {date && (
                     <p
-                      className='text-2xl text-blue-200'
+                      className='text-2xl text-primary font-sans'
                       style={{ transform: `translateX(-${textTranslateX}vw)` }}
                     >
                       {date}
@@ -291,7 +291,7 @@ const ScrollExpandMedia = ({
                   )}
                   {scrollToExpand && (
                     <p
-                      className='text-blue-200 font-medium text-center'
+                      className='text-primary font-medium font-sans text-center'
                       style={{ transform: `translateX(${textTranslateX}vw)` }}
                     >
                       {scrollToExpand}
@@ -307,13 +307,13 @@ const ScrollExpandMedia = ({
                 }`}
               >
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
+                  className='text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-primary transition-none'
                   style={{ transform: `translateX(-${textTranslateX}vw)` }}
                 >
                   {firstWord}
                 </motion.h2>
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none'
+                  className='text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-center text-primary transition-none'
                   style={{ transform: `translateX(${textTranslateX}vw)` }}
                 >
                   {restOfTitle}

@@ -18,7 +18,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full bg-transparent shadow-md backdrop-blur-sm">
+    <header className="fixed top-0 left-0 z-50 w-full bg-background/10 shadow-md backdrop-blur-md border-b border-border/30">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <motion.div
@@ -33,7 +33,7 @@ export default function Navbar() {
         >
           <Link
             href="/"
-            className="text-3xl font-serif text-white transition-all duration-300 hover:text-black"
+            className="text-3xl font-serif text-primary transition-all duration-300 hover:text-primary/80"
           >
             Sterivio
           </Link>
@@ -51,11 +51,11 @@ export default function Navbar() {
               >
                 <Link
                   href={item.href}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 
+                  className={`px-4 py-2 rounded-full text-sm font-medium font-sans transition-colors duration-300 
                     ${
                       isActive
-                        ? "bg-black text-white"
-                        : "bg-transparent text-white hover:bg-white/20"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground"
                     }`}
                 >
                   {item.label}
@@ -67,7 +67,7 @@ export default function Navbar() {
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden text-white focus:outline-none"
+          className="md:hidden text-foreground focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -80,7 +80,7 @@ export default function Navbar() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="md:hidden flex flex-col items-center gap-4 py-6 bg-black/80 backdrop-blur-md"
+          className="md:hidden flex flex-col items-center gap-4 py-6 bg-card backdrop-blur-md border-b border-border"
         >
           {navItems.map((item) => {
             const isActive = pathname === item.href;
@@ -89,11 +89,11 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`w-full text-center px-4 py-2 rounded-md text-lg font-medium transition-colors duration-300
+                className={`w-full text-center px-4 py-2 rounded-md text-lg font-medium font-sans transition-colors duration-300
                   ${
                     isActive
-                      ? "bg-white text-black"
-                      : "text-white hover:bg-white/20"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-foreground hover:bg-accent hover:text-accent-foreground"
                   }`}
               >
                 {item.label}
