@@ -1,7 +1,7 @@
 'use client';
 
 import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue, useTransform, MotionValue } from "framer-motion";
 import { CheckCircle, ClipboardCheck, Globe } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -186,10 +186,10 @@ const FeaturesSection = () => {
     window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     return () => {
-      window.removeEventListener("wheel", handleWheel as any);
-      window.removeEventListener("touchstart", handleTouchStart as any);
-      window.removeEventListener("touchmove", handleTouchMove as any);
-      window.removeEventListener("touchend", handleTouchEnd as any);
+      window.removeEventListener("wheel", handleWheel as EventListener);
+      window.removeEventListener("touchstart", handleTouchStart as EventListener);
+      window.removeEventListener("touchmove", handleTouchMove as EventListener);
+      window.removeEventListener("touchend", handleTouchEnd as EventListener);
     };
   }, [capturing, internalProgress]);
 
@@ -306,7 +306,7 @@ const FeaturesSection = () => {
   );
 };
 
-const FloatingIcon = ({ Icon, x, y, isActive }: any) => (
+const FloatingIcon = ({ Icon, x, y, isActive }: { Icon: React.ElementType; x: MotionValue<number>; y: MotionValue<number>; isActive: boolean }) => (
   <motion.div
     style={{ x, y }}
     className="absolute z-20 hidden md:block"
@@ -360,7 +360,7 @@ const FeatureCard = ({ title, description }: { title: string; description: strin
   </motion.div>
 );
 
-const MobileFeatureCard = ({ feature, index }: any) => (
+const MobileFeatureCard = ({ feature, index }: { feature: typeof Features[0]; index: number }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
