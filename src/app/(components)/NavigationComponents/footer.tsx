@@ -4,11 +4,11 @@ import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from "lucide-react
 
 export default function Footer() {
   const scrollToSection = (sectionId: string) => {
-    const lenis = (window as any).lenis;
+    const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement | number, options?: { offset?: number; duration?: number }) => void } }).lenis;
     
     // If we're at the top and hero is not expanded, expand it first
     if (window.scrollY < 10 && sectionId !== "hero") {
-      const expandFunc = (window as any).expandHeroAndNavigate;
+      const expandFunc = (window as unknown as { expandHeroAndNavigate?: (callback: () => void) => void }).expandHeroAndNavigate;
       if (expandFunc) {
         expandFunc(() => {
           setTimeout(() => {

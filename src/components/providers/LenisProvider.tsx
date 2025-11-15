@@ -15,7 +15,6 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
     });
@@ -31,11 +30,11 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
     requestAnimationFrame(raf);
 
     // Expose lenis instance globally for navigation
-    (window as any).lenis = lenis;
+    (window as unknown as { lenis: typeof lenis }).lenis = lenis;
 
     return () => {
       lenis.destroy();
-      delete (window as any).lenis;
+      delete (window as unknown as { lenis?: typeof lenis }).lenis;
     };
   }, []);
 

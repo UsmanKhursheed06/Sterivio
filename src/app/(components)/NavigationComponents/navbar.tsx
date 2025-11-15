@@ -1,8 +1,7 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { rafThrottle } from "@/lib/performance-utils";
 
@@ -13,13 +12,12 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const sectionsRef = useRef<{ id: string; offsetTop: number; offsetHeight: number }[]>([]);
 
   const scrollToSection = (sectionId: string) => {
-    const lenis = (window as any).lenis;
+    const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement | number, options?: { offset?: number; duration?: number }) => void } }).lenis;
     
     // If clicking hero, just scroll to top
     if (sectionId === "hero") {
@@ -35,7 +33,7 @@ export default function Navbar() {
     
     // If we're at the top and hero is not expanded, expand it first
     if (window.scrollY < 10) {
-      const expandFunc = (window as any).expandHeroAndNavigate;
+      const expandFunc = (window as unknown as { expandHeroAndNavigate?: (callback: () => void) => void }).expandHeroAndNavigate;
       if (expandFunc) {
         expandFunc(() => {
           // After expansion, navigate to section
@@ -84,11 +82,11 @@ export default function Navbar() {
   };
 
   const scrollToQuote = () => {
-    const lenis = (window as any).lenis;
+    const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement | number, options?: { offset?: number; duration?: number }) => void } }).lenis;
     
     // If we're at the top and hero is not expanded, expand it first
     if (window.scrollY < 10) {
-      const expandFunc = (window as any).expandHeroAndNavigate;
+      const expandFunc = (window as unknown as { expandHeroAndNavigate?: (callback: () => void) => void }).expandHeroAndNavigate;
       if (expandFunc) {
         expandFunc(() => {
           // After expansion, navigate to quote section

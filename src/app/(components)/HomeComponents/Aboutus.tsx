@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useTransform, MotionValue } from "framer-motion";
 import { CheckCircle, ClipboardCheck, Globe, FileText, MessageSquareQuote } from "lucide-react";
-import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { rafThrottle } from "@/lib/performance-utils";
 
 const Features = [
@@ -30,7 +30,6 @@ export default function Aboutus() {
 
   // Internal progress that we control (0 -> 1) using IntersectionObserver instead of scroll hijacking
   const progress = useMotionValue(0);
-  const [internalProgress, setInternalProgress] = useState(0);
 
   // Detect mobile devices
   useEffect(() => {
@@ -63,14 +62,10 @@ export default function Aboutus() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const rect = entry.boundingClientRect;
-            const windowHeight = window.innerHeight;
-            
             // Calculate progress based on visibility
             const visibleRatio = entry.intersectionRatio;
             const scrollProgress = Math.max(0, Math.min(1, visibleRatio * 1.5));
             
-            setInternalProgress(scrollProgress);
             progress.set(scrollProgress);
             
             // Update active index

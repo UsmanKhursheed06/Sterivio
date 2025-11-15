@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, MapPin, Clock, Send, Building2, User, MessageSquare, X } from "lucide-react";
-import { useState, useCallback, memo } from "react";
+import { useState } from "react";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const contactInfo = [
@@ -38,11 +38,11 @@ export default function Requestquote() {
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [lottieError, setLottieError] = useState(false);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  }, [formData]);
+  };
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
     console.log("Form submitted:", formData);
@@ -57,11 +57,11 @@ export default function Requestquote() {
       email: "",
       message: "",
     });
-  }, [formData]);
+  };
 
-  const closeDialog = useCallback(() => {
+  const closeDialog = () => {
     setShowSuccessDialog(false);
-  }, []);
+  };
 
   return (
     <section id="quote" className="relative w-full bg-gradient-to-b from-background via-accent/5 to-background py-24 overflow-hidden">

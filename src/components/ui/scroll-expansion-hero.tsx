@@ -7,7 +7,6 @@ import {
   ReactNode,
   type TouchEvent,
   type WheelEvent,
-  useCallback,
 } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -47,9 +46,7 @@ const ScrollExpandMedia = ({
 
   // Expose expand function globally
   useEffect(() => {
-    const lenis = (window as any).lenis;
-    
-    (window as any).expandHeroAndNavigate = (callback: () => void) => {
+    (window as unknown as { expandHeroAndNavigate: (callback: () => void) => void }).expandHeroAndNavigate = (callback: () => void) => {
       if (mediaFullyExpanded) {
         callback();
         return;
@@ -95,7 +92,7 @@ const ScrollExpandMedia = ({
     };
     
     return () => {
-      delete (window as any).expandHeroAndNavigate;
+      delete (window as unknown as { expandHeroAndNavigate?: (callback: () => void) => void }).expandHeroAndNavigate;
     };
   }, [scrollProgress, mediaFullyExpanded]);
 
@@ -108,7 +105,7 @@ const ScrollExpandMedia = ({
 
   // Handle scroll and touch events - optimized with RAF throttling
   useEffect(() => {
-    const lenis = (window as any).lenis;
+    const lenis = (window as unknown as { lenis?: { scrollTo: (target: number, options?: { immediate?: boolean; force?: boolean }) => void } }).lenis;
     let rafId: number | null = null;
     let pendingScrollDelta = 0;
 
