@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, MotionValue } from "framer-motion";
+import { motion, useMotionValue, useTransform, MotionValue, useScroll } from "framer-motion";
 import { CheckCircle, ClipboardCheck, Globe, FileText, MessageSquareQuote } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { rafThrottle } from "@/lib/performance-utils";
@@ -29,67 +29,50 @@ export default function Aboutus() {
   const [isMobile, setIsMobile] = useState(false);
 
   // Internal progress that we control (0 -> 1) using IntersectionObserver instead of scroll hijacking
-  const progress = useMotionValue(0);
+  // const progress = useMotionValue(0);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"], // When section starts entering viewport to when it fully exits
+  });
 
   // Detect mobile devices
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     const handleResize = rafThrottle(checkMobile);
     window.addEventListener('resize', handleResize, { passive: true });
-    
+
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const [start, mid, end] = [0.25, 0.5, 0.75]
+
   // Map internal progress to icon positions - memoized
-  const icon1X = useTransform(progress, [0, 0.33, 0.66, 1], [-140, 160, -100, -140]);
-  const icon1Y = useTransform(progress, [0, 0.33, 0.66, 1], [-90, -15, 140, -90]);
+  const icon1X = useTransform(scrollYProgress, [start, mid, end], [-140, 160, -100]);
+  const icon1Y = useTransform(scrollYProgress, [start, mid, end], [-90, -15, 140]);
 
-  const icon2X = useTransform(progress, [0, 0.33, 0.66, 1], [160, -100, -140, 160]);
-  const icon2Y = useTransform(progress, [0, 0.33, 0.66, 1], [-15, 140, -90, -15]);
+  const icon2X = useTransform(scrollYProgress, [start, mid, end], [160, -100, -140]);
+  const icon2Y = useTransform(scrollYProgress, [start, mid, end], [-15, 140, -90]);
 
-  const icon3X = useTransform(progress, [0, 0.33, 0.66, 1], [-100, -140, 160, -100]);
-  const icon3Y = useTransform(progress, [0, 0.33, 0.66, 1], [140, -90, -15, 140]);
+  const icon3X = useTransform(scrollYProgress, [start, mid, end], [-100, -140, 160]);
+  const icon3Y = useTransform(scrollYProgress, [start, mid, end], [140, -90, -15]);
 
-  // Update active feature based on scroll position using IntersectionObserver
   useEffect(() => {
-    if (isMobile || !sectionRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Calculate progress based on visibility
-            const visibleRatio = entry.intersectionRatio;
-            const scrollProgress = Math.max(0, Math.min(1, visibleRatio * 1.5));
-            
-            progress.set(scrollProgress);
-            
-            // Update active index
-            if (scrollProgress < 0.33) setActiveIndex(0);
-            else if (scrollProgress < 0.66) setActiveIndex(1);
-            else setActiveIndex(2);
-          }
-        });
-      },
-      {
-        threshold: Array.from({ length: 20 }, (_, i) => i * 0.05), // 20 checkpoints
-        rootMargin: '-10% 0px -10% 0px'
-      }
-    );
-
-    observer.observe(sectionRef.current);
-
-    return () => observer.disconnect();
-  }, [isMobile, progress]);
+    return scrollYProgress.on("change", (v) => {
+      if (v < 0.33) setActiveIndex(0);
+      else if (v < 0.66) setActiveIndex(1);
+      else setActiveIndex(2);
+    });
+  }, [scrollYProgress]);
 
   const activeFeature = useMemo(() => Features[activeIndex], [activeIndex]);
 
   return (
-    <section id="about" ref={sectionRef} className={isMobile ? "relative min-h-screen" : "relative h-[100vh]"}>
+    <section id="about" ref={sectionRef} className={isMobile ? "relative min-h-screen" : "relative h-[400vh]"}>
       <div className={isMobile ? "w-full bg-background py-12" : "sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-background"}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl h-full md:h-auto flex items-center">
           <div className="relative mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center justify-center w-full">
@@ -184,10 +167,10 @@ export default function Aboutus() {
                 title={activeFeature.title}
                 description={activeFeature.description}
               />
-              
+
               {/* CTA Buttons */}
               <motion.div
-                key={`buttons-${activeIndex}`}
+                // key={`buttons-${activeIndex}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -201,7 +184,7 @@ export default function Aboutus() {
                 >
                   {/* Animated background */}
                   <div className="absolute inset-0 bg-gradient-to-r from-chart-3 via-chart-2 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   {/* Button Content */}
                   <div className="relative flex items-center justify-center gap-2">
                     <FileText className="w-5 h-5 group-hover:animate-bounce" />
@@ -219,7 +202,7 @@ export default function Aboutus() {
                 >
                   {/* Animated background */}
                   <div className="absolute inset-0 bg-gradient-to-r from-chart-3 via-chart-2 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   {/* Button Content */}
                   <div className="relative flex items-center justify-center gap-2">
                     <MessageSquareQuote className="w-5 h-5 group-hover:animate-bounce" />
@@ -280,7 +263,7 @@ const FeatureCard = ({ title, description }: { title: string; description: strin
     className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-lg max-w-xl"
   >
     <h3 className="text-xl md:text-2xl font-bold font-sans text-foreground mb-3 md:mb-4">{title}</h3>
-    <motion.p 
+    <motion.p
       className="text-sm md:text-base font-sans text-muted-foreground leading-relaxed"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
