@@ -175,44 +175,43 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full bg-background/10 shadow-md backdrop-blur-md border-b border-border/30">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <header className="fixed top-0 left-0 z-50 w-full bg-white/70 shadow-lg backdrop-blur-md border-b border-gray-200/50">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-5">
         {/* Logo */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           whileHover={{
-            scale: 1.2,
-            rotate: 2,
+            scale: 1.05,
             transition: { duration: 0.3 },
           }}
         >
           <Link
             href="/"
-            className="text-3xl font-serif text-primary transition-all duration-300 hover:text-primary/80"
+            className="text-3xl font-black text-gray-900 tracking-tight transition-all duration-300 hover:text-gray-700 uppercase"
           >
             Sterivio
           </Link>
         </motion.div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-4 items-center">
+        <nav className="hidden md:flex gap-2 items-center">
           {navItems.map((item) => {
             const isActive = activeSection === item.section;
             return (
               <motion.div
                 key={item.href}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <button
                   onClick={() => scrollToSection(item.section)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium font-sans transition-colors duration-300 
+                  className={`px-5 py-2.5 rounded-md text-sm font-bold uppercase tracking-wide transition-all duration-300 
                     ${
                       isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground"
+                        ? "bg-gray-900 text-white shadow-md"
+                        : "bg-transparent text-gray-700 hover:bg-gray-100"
                     }`}
                 >
                   {item.label}
@@ -221,46 +220,23 @@ export default function Navbar() {
             );
           })}
           
-          {/* Request Quote Button - Highlighted */}
-          <motion.div
+          {/* Request Quote Button */}
+          <motion.button
+            onClick={scrollToQuote}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            animate={{
-              boxShadow: [
-                "0 0 20px rgba(245, 158, 11, 0.3)",
-                "0 0 30px rgba(245, 158, 11, 0.5)",
-                "0 0 20px rgba(245, 158, 11, 0.3)",
-              ],
-            }}
-            transition={{
-              boxShadow: {
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              },
-            }}
+            className="ml-4 px-8 py-2.5 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-sm rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide"
           >
-            <button
-              onClick={scrollToQuote}
-              className="group relative px-6 py-2 bg-gradient-to-r from-primary via-chart-2 to-chart-3 text-primary-foreground font-bold text-sm rounded-full shadow-xl overflow-hidden transition-all duration-300"
-            >
-              {/* Animated background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-chart-3 via-chart-2 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <span className="relative">Request Quote</span>
-
-              {/* Shimmer Effect */}
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-            </button>
-          </motion.div>
+            Request Quote
+          </motion.button>
         </nav>
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden text-foreground focus:outline-none"
+          className="md:hidden text-gray-900 focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+          {isOpen ? <X size={32} strokeWidth={2.5} /> : <Menu size={32} strokeWidth={2.5} />}
         </button>
       </div>
 
@@ -270,7 +246,7 @@ export default function Navbar() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="md:hidden flex flex-col items-center gap-4 py-6 bg-card backdrop-blur-md border-b border-border"
+          className="md:hidden flex flex-col items-center gap-3 py-6 bg-white border-b border-gray-200 shadow-lg"
         >
           {navItems.map((item) => {
             const isActive = activeSection === item.section;
@@ -278,11 +254,11 @@ export default function Navbar() {
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.section)}
-                className={`w-full text-center px-4 py-2 rounded-md text-lg font-medium font-sans transition-colors duration-300
+                className={`w-11/12 text-center px-5 py-3 rounded-md text-base font-bold uppercase tracking-wide transition-all duration-300
                   ${
                     isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-foreground hover:bg-accent hover:text-accent-foreground"
+                      ? "bg-gray-900 text-white shadow-md"
+                      : "text-gray-700 hover:bg-gray-100"
                   }`}
               >
                 {item.label}
@@ -294,11 +270,9 @@ export default function Navbar() {
           <motion.button
             onClick={scrollToQuote}
             whileTap={{ scale: 0.95 }}
-            className="group relative w-full px-6 py-3 bg-gradient-to-r from-primary via-chart-2 to-chart-3 text-primary-foreground font-bold text-lg rounded-full shadow-xl overflow-hidden transition-all duration-300"
+            className="w-11/12 px-8 py-3.5 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-base rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-chart-3 via-chart-2 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <span className="relative">Request Quote</span>
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+            Request Quote
           </motion.button>
         </motion.nav>
       )}
