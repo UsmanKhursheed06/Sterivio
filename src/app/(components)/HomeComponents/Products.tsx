@@ -1,66 +1,188 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { Download } from "lucide-react";
-import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { Download, ExternalLink, Scissors, Zap, Brush, Grip, Footprints, Eye, Droplets, Bath, Shield, Table, Smile, ShirtIcon, Wrench, Package, type LucideIcon } from "lucide-react";
 import { memo } from "react";
 
-const productCategories = [
+interface GroomingCategory {
+  id: number;
+  title: string;
+  icon: LucideIcon;
+  subcategories: string[];
+  catalogUrl: string;
+}
+
+const groomingCategories: GroomingCategory[] = [
   {
-    title: "Surgical Instruments",
-    description: "Precision-engineered surgical tools crafted from medical-grade stainless steel, designed for optimal performance in veterinary procedures.",
+    id: 1,
+    title: "Grooming Shears & Scissors",
+    icon: Scissors,
+    subcategories: [
+      "Straight Grooming Shears",
+      "Curved Grooming Shears",
+      "Thinning & Blending Shears",
+      "Chunkers & Specialty Shears",
+      "Safety & Detail Scissors"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1Lf6gxIm--9XjqI4nVml3ghBUJW5JvgpC/view?usp=sharing"
   },
   {
-    title: "Grooming Tools",
-    description: "Professional-grade grooming instruments featuring ergonomic designs and razor-sharp edges for superior pet care and styling.",
+    id: 2,
+    title: "Clippers & Trimming Systems",
+    icon: Zap,
+    subcategories: [
+      "Professional Electric Clippers",
+      "Mini & Detail Trimmers",
+      "Detachable Clipper Blades",
+      "Specialty Blades & Guards",
+      "Clipper Maintenance"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1ohU3wJ6c_-bABImFhhKH1t7QCXTh3BT2/view?usp=sharing"
   },
   {
-    title: "Diagnostic Equipment",
-    description: "Advanced diagnostic instruments that deliver accurate results, helping veterinary professionals make informed decisions.",
+    id: 3,
+    title: "Brushes & Coat Tools",
+    icon: Brush,
+    subcategories: [
+      "Slicker & Pin Brushes",
+      "Bristle & Combination Brushes",
+      "Undercoat & Shedding Tools",
+      "Specialty Coat Tools"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1Ep2WEQ751eXmistt6Xc2jrS5pJXxqjvl/view?usp=sharing"
   },
+  {
+    id: 4,
+    title: "Combs & Dematting Tools",
+    icon: Grip,
+    subcategories: [
+      "Grooming Combs",
+      "Flea & Specialty Combs",
+      "Dematting Tools",
+      "Hand-Stripping & Heavy Undercoat Tools"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/18wXwY5KwDcW8eOI7xXDC3-fUUtLGoZEf/view?usp=sharing"
+  },
+  {
+    id: 5,
+    title: "Nail Care Instruments",
+    icon: Footprints,
+    subcategories: [
+      "Nail Clippers",
+      "Nail Grinding & Finishing",
+      "Hemostasis & Nail Safety"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1BBX5rsM_Etz8qI20cK7MhgHdhR4YydxQ/view?usp=sharing"
+  },
+  {
+    id: 6,
+    title: "Ear, Eye & Hygiene Tools",
+    icon: Eye,
+    subcategories: [
+      "Ear Care Instruments",
+      "Eye & Facial Hygiene",
+      "General Hygiene Tools",
+      "Optional Consumables"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1y3nmhgNz9BLBTIcVlkFDl6Q2i7thXvcT/view?usp=sharing"
+  },
+  {
+    id: 7,
+    title: "Bathing & Drying Accessories",
+    icon: Droplets,
+    subcategories: [
+      "Bathing Tools",
+      "Drying Equipment",
+      "Water Control Accessories"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1NuEcdwRQqQEhevCY3roQbugBnI_6iE5g/view?usp=sharing"
+  },
+  {
+    id: 8,
+    title: "Bathing Stations & Systems",
+    icon: Bath,
+    subcategories: [
+      "Professional Grooming Tubs"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1bfuUFgzD_OFpZP6H0CcAM4wZ_sgcGjWU/view?usp=sharing"
+  },
+  {
+    id: 9,
+    title: "Grooming Restraint & Safety",
+    icon: Shield,
+    subcategories: [
+      "Grooming Loops & Leads",
+      "Table-Mounted Restraint Systems",
+      "Muzzles & Harness Restraints"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1Dp2eKJjDpryRyHmpgNDbRd3gjKfsF_tA/view?usp=sharing"
+  },
+  {
+    id: 10,
+    title: "Grooming Tables & Support",
+    icon: Table,
+    subcategories: [
+      "Grooming Tables",
+      "Table Accessories"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1qR8R39yNGm2RwM-GVptiMVL4zG-BPxKX/view?usp=sharing"
+  },
+  {
+    id: 11,
+    title: "Dental & Oral Hygiene (Grooming Level)",
+    icon: Smile,
+    subcategories: [
+      "Oral Care Instruments"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1_5Le7uK-4UWV_9H3dh0Q8AaB7pppeWOU/view?usp=sharing"
+  },
+  {
+    id: 12,
+    title: "Safety, Apparel & Extras",
+    icon: ShirtIcon,
+    subcategories: [
+      "Groomer Safety & Apparel",
+      "Parasite & Safety Tools"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1mfNHJP-WogdeLnhAbGmM7cYt-sq9lPxw/view?usp=sharing"
+  },
+  {
+    id: 13,
+    title: "Accessories & Tool Maintenance",
+    icon: Wrench,
+    subcategories: [
+      "Tool Care & Maintenance",
+      "Storage & Organization",
+      "Disinfection & Support"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/16TtDvr0sHhKvbz1D0XarTQcHD3r5YDab/view?usp=sharing"
+  },
+  {
+    id: 14,
+    title: "Grooming Kits",
+    icon: Package,
+    subcategories: [
+      "Core Grooming Kits",
+      "Specialty Grooming Kits",
+      "Procedure-Specific Kits"
+    ],
+    catalogUrl: "https://drive.google.com/file/d/1CBVPH0cArnT5BTNGpNceYBWcfeGgLP0c/view?usp=sharing"
+  }
 ];
 
-const popularProducts = [
-  {
-    quote: "Premium surgical scissors featuring ultra-sharp blades and ergonomic handles for precise cutting in veterinary procedures.",
-    name: "Surgical Scissors",
-    designation: "Surgical Instruments",
-    src: "/plasticsec.jpg",
-  },
-  {
-    quote: "Professional grooming shears with razor-sharp edges and comfortable grip for superior pet styling and coat maintenance.",
-    name: "Grooming Shears",
-    designation: "Grooming Tools",
-    src: "/vetsec.jpg",
-  },
-//   {
-//     quote: "Medical-grade forceps set designed for secure grip and precise handling during surgical and diagnostic procedures.",
-//     name: "Forceps Set",
-//     designation: "Surgical Instruments",
-//     src: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=3540&auto=format&fit=crop",
-//   },
-//   {
-//     quote: "Stainless steel nail clippers with safety guards and sharp cutting edges for safe and efficient pet nail trimming.",
-//     name: "Professional Nail Clippers",
-//     designation: "Grooming Tools",
-//     src: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=3464&auto=format&fit=crop",
-//   },
-//   {
-//     quote: "Precision dental scalers and explorers for comprehensive oral care and plaque removal in veterinary dentistry.",
-//     name: "Dental Instrument Set",
-//     designation: "Dental Instruments",
-//     src: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2592&auto=format&fit=crop",
-//   },
-];
+const CATALOG_PDF_URL = "https://drive.google.com/file/d/1lyu7eBw48q_IqhyRg9EBWInAt2pUVFqI/view?usp=sharing";
 
 const Products = memo(function Products() {
-  return (
-    <section id="products" className="relative w-full bg-background py-24 overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/5 to-background" />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+  const handleCategoryClick = (catalogUrl: string) => {
+    window.open(catalogUrl, '_blank', 'noopener,noreferrer');
+  };
 
+  const handleDownloadCatalog = () => {
+    window.open(CATALOG_PDF_URL, '_blank', 'noopener,noreferrer');
+  };
+
+  return (
+    <section id="products" className="relative w-full bg-white py-24 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Main Heading */}
         <motion.div
@@ -68,89 +190,91 @@ const Products = memo(function Products() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
-          <h2 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-4">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-4 uppercase tracking-tight">
             Our Products
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary via-chart-2 to-chart-3 mx-auto rounded-full" />
+          <div className="w-24 h-1 bg-cyan-500 mx-auto mb-4" />
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Professional-grade grooming instruments and systems for exceptional pet care
+          </p>
         </motion.div>
 
-        {/* Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
-          {/* Left Side - Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-8"
-          >
-            {productCategories.map((category, index) => (
+        {/* Categories Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {groomingCategories.map((category, index) => {
+            const IconComponent = category.icon;
+            return (
               <motion.div
-                key={index}
+                key={category.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                className="group relative bg-card border border-border rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 hover:border-primary/50"
+                transition={{ duration: 0.6, delay: 0.05 * index }}
+                className="bg-white border-2 border-gray-200 rounded-lg p-6 hover:border-cyan-500 hover:shadow-lg transition-all duration-300 group flex flex-col h-full"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
-                <div className="relative">
-                  <h3 className="text-2xl font-serif font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
-                    {category.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {category.description}
-                  </p>
+                {/* Header with Icon and Title */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-black text-gray-900 uppercase tracking-tight leading-tight mb-2">
+                      {category.title}
+                    </h3>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleCategoryClick(category.catalogUrl)}
+                    className="flex-shrink-0 ml-3 p-2.5 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                    aria-label={`View ${category.title} catalog`}
+                    title={`View ${category.title} catalog`}
+                  >
+                    <IconComponent className="w-5 h-5" />
+                  </motion.button>
                 </div>
+
+                {/* Subcategories List */}
+                <ul className="space-y-1.5 mb-5 flex-grow">
+                  {category.subcategories.map((subcategory, subIndex) => (
+                    <li 
+                      key={subIndex}
+                      className="text-sm text-gray-600 flex items-start"
+                    >
+                      <span className="text-cyan-500 mr-2 mt-0.5">•</span>
+                      <span className="flex-1">{subcategory}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* View Catalog Button */}
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleCategoryClick(category.catalogUrl)}
+                  className="w-full px-4 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white font-bold text-sm rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide flex items-center justify-center gap-2"
+                >
+                  <span>View Catalog</span>
+                  <ExternalLink className="w-4 h-4" />
+                </motion.button>
               </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Right Side - Popular Products with Animated Showcase */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="sticky top-24">
-              {/* Popular Products Header */}
-              <div className="text-center mb-8">
-                <h3 className="text-3xl font-serif font-bold text-foreground mb-2">
-                  Popular Products
-                </h3>
-                <div className="w-16 h-1 bg-gradient-to-r from-primary to-chart-2 mx-auto rounded-full" />
-              </div>
-
-              {/* Animated Products Showcase */}
-              <div className="bg-card/50 border border-border rounded-3xl p-6 shadow-xl">
-                <AnimatedTestimonials 
-                  testimonials={popularProducts} 
-                  autoplay={true}
-                  className="!p-0 !py-0"
-                />
-              </div>
-
-              {/* Decorative Badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="mt-8 text-center"
-              >
-                <div className="inline-block px-6 py-3 bg-gradient-to-r from-primary/10 via-chart-2/10 to-chart-3/10 border border-primary/30 rounded-full">
-                  <p className="text-sm font-semibold text-primary">
-                    ✨ 200+ Premium Instruments
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+            );
+          })}
         </div>
+
+        {/* Decorative Badge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-center mb-12"
+        >
+          <div className="inline-block px-6 py-3 bg-gray-100 border-2 border-gray-200 rounded-full">
+            <p className="text-sm font-bold text-gray-900 uppercase tracking-wide">
+              ✨ 14 Complete Product Categories
+            </p>
+          </div>
+        </motion.div>
 
         {/* CTA Button - Centered at the bottom */}
         <motion.div
@@ -161,21 +285,13 @@ const Products = memo(function Products() {
           className="flex justify-center"
         >
           <motion.button
-            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.3)" }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            className="group relative px-10 py-5 bg-gradient-to-r from-primary via-chart-2 to-chart-3 text-primary-foreground font-bold text-lg rounded-full shadow-xl overflow-hidden transition-all duration-300"
+            onClick={handleDownloadCatalog}
+            className="px-10 py-5 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-lg rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide flex items-center gap-3"
           >
-            {/* Animated background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-chart-3 via-chart-2 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            {/* Button Content */}
-            <div className="relative flex items-center gap-3">
-              <Download className="w-6 h-6 group-hover:animate-bounce" />
-              <span>Download Catalog</span>
-            </div>
-
-            {/* Shimmer Effect */}
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            <Download className="w-6 h-6" />
+            <span>Download Complete Catalog</span>
           </motion.button>
         </motion.div>
 
@@ -185,9 +301,9 @@ const Products = memo(function Products() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center mt-6 text-sm text-muted-foreground"
+          className="text-center mt-6 text-sm text-gray-600 uppercase tracking-wide font-semibold"
         >
-          Explore our complete range of veterinary and grooming instruments
+          Explore our complete range of professional grooming instruments
         </motion.p>
       </div>
     </section>

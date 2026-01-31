@@ -59,18 +59,20 @@ export default function Footer() {
       }
     }, 100);
   };
+  
   return (
-    <footer className="relative bg-card border-t border-border text-muted-foreground py-14 mt-1">
+    <footer className="relative bg-white border-t-2 border-gray-200 py-16">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
         
         {/* Logo / About */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl font-bold font-serif text-primary">Sterivio</h2>
-          <p className="mt-4 text-sm leading-6 font-sans">
+          <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tight">Sterivio</h2>
+          <p className="mt-4 text-sm leading-6 text-gray-700">
             Premium quality surgical instruments trusted by professionals worldwide.
           </p>
         </motion.div>
@@ -79,27 +81,28 @@ export default function Footer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <h3 className="text-lg font-semibold font-sans text-foreground mb-4">Quick Links</h3>
+          <h3 className="text-lg font-black text-gray-900 mb-4 uppercase tracking-tight">Quick Links</h3>
           <ul className="space-y-2">
             <li>
-              <button onClick={() => scrollToSection("hero")} className="hover:text-primary transition font-sans">
+              <button onClick={() => scrollToSection("hero")} className="text-sm text-gray-700 hover:text-cyan-500 transition font-semibold">
                 Home
               </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection("about")} className="hover:text-primary transition font-sans">
+              <button onClick={() => scrollToSection("about")} className="text-sm text-gray-700 hover:text-cyan-500 transition font-semibold">
                 Why Us?
               </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection("products")} className="hover:text-primary transition font-sans">
+              <button onClick={() => scrollToSection("products")} className="text-sm text-gray-700 hover:text-cyan-500 transition font-semibold">
                 Products
               </button>
             </li>
             <li>
-              <button onClick={() => scrollToSection("quote")} className="hover:text-primary transition font-sans">
+              <button onClick={() => scrollToSection("quote")} className="text-sm text-gray-700 hover:text-cyan-500 transition font-semibold">
                 Request Quote
               </button>
             </li>
@@ -110,12 +113,13 @@ export default function Footer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h3 className="text-lg font-semibold font-sans text-foreground mb-4">Our Niches</h3>
+          <h3 className="text-lg font-black text-gray-900 mb-4 uppercase tracking-tight">Our Niches</h3>
           <ul className="space-y-2">
-            <li className="text-sm font-sans leading-relaxed">
-              <span className="font-semibold text-foreground">Veterinary:</span> Specialized surgical instruments and grooming tools for veterinary professionals, crafted from medical-grade stainless steel for optimal performance in animal care.
+            <li className="text-sm text-gray-700 leading-relaxed">
+              <span className="font-bold text-gray-900">Veterinary:</span> Specialized surgical instruments and grooming tools for veterinary professionals.
             </li>
           </ul>
         </motion.div>
@@ -124,30 +128,31 @@ export default function Footer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <h3 className="text-lg font-semibold font-sans text-foreground mb-4 ml-10">Contact Us</h3>
-          <ul className="space-y-3 text-sm font-sans ml-10">
+          <h3 className="text-lg font-black text-gray-900 mb-4 uppercase tracking-tight">Contact Us</h3>
+          <ul className="space-y-3 text-sm text-gray-700">
             <li className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-primary" /> info@sterivio.com
+              <Mail className="w-4 h-4 text-cyan-500" /> info@sterivio.com
             </li>
             <li className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-primary" /> +92 300 1234567
+              <Phone className="w-4 h-4 text-cyan-500" /> +92 300 1234567
             </li>
             <li className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-primary" /> Sialkot, Pakistan
+              <MapPin className="w-4 h-4 text-cyan-500" /> Sialkot, Pakistan
             </li>
           </ul>
 
           {/* Social Links */}
-          <div className="flex gap-4 mt-6 ml-10">
-            <a href="#" className="p-2 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition">
+          <div className="flex gap-3 mt-6">
+            <a href="#" className="p-2 bg-gray-100 hover:bg-cyan-500 hover:text-white rounded-lg transition-colors duration-300">
               <Facebook className="w-5 h-5" />
             </a>
-            <a href="#" className="p-2 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition">
+            <a href="#" className="p-2 bg-gray-100 hover:bg-cyan-500 hover:text-white rounded-lg transition-colors duration-300">
               <Instagram className="w-5 h-5" />
             </a>
-            <a href="#" className="p-2 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition">
+            <a href="#" className="p-2 bg-gray-100 hover:bg-cyan-500 hover:text-white rounded-lg transition-colors duration-300">
               <Linkedin className="w-5 h-5" />
             </a>
           </div>
@@ -155,7 +160,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-border mt-10 pt-6 text-center text-sm font-sans text-muted-foreground">
+      <div className="border-t-2 border-gray-200 mt-10 pt-6 text-center text-sm font-semibold text-gray-700 max-w-7xl mx-auto px-6">
         © {new Date().getFullYear()} Sterivio. All rights reserved.
       </div>
     </footer>

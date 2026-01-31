@@ -1,9 +1,8 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, MotionValue, useScroll } from "framer-motion";
 import { CheckCircle, ClipboardCheck, Globe, FileText, MessageSquareQuote } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { rafThrottle } from "@/lib/performance-utils";
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { motion } from "framer-motion";
 
 const Features = [
   {
@@ -23,295 +22,135 @@ const Features = [
   },
 ];
 
+const popularProducts = [
+  {
+    quote: "Premium surgical scissors featuring ultra-sharp blades and ergonomic handles for precise cutting in veterinary procedures.",
+    name: "Surgical Scissors",
+    designation: "Surgical Instruments",
+    src: "/plasticsec.jpg",
+  },
+  {
+    quote: "Professional grooming shears with razor-sharp edges and comfortable grip for superior pet styling and coat maintenance.",
+    name: "Grooming Shears",
+    designation: "Grooming Tools",
+    src: "/vetsec.jpg",
+  },
+];
+
 export default function Aboutus() {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Internal progress that we control (0 -> 1) using IntersectionObserver instead of scroll hijacking
-  // const progress = useMotionValue(0);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"], // When section starts entering viewport to when it fully exits
-  });
-
-  // Detect mobile devices
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    const handleResize = rafThrottle(checkMobile);
-    window.addEventListener('resize', handleResize, { passive: true });
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const [start, mid, end] = [0.25, 0.5, 0.75]
-
-  // Map internal progress to icon positions - memoized
-  const icon1X = useTransform(scrollYProgress, [start, mid, end], [-140, 160, -100]);
-  const icon1Y = useTransform(scrollYProgress, [start, mid, end], [-90, -15, 140]);
-
-  const icon2X = useTransform(scrollYProgress, [start, mid, end], [160, -100, -140]);
-  const icon2Y = useTransform(scrollYProgress, [start, mid, end], [-15, 140, -90]);
-
-  const icon3X = useTransform(scrollYProgress, [start, mid, end], [-100, -140, 160]);
-  const icon3Y = useTransform(scrollYProgress, [start, mid, end], [140, -90, -15]);
-
-  useEffect(() => {
-    return scrollYProgress.on("change", (v) => {
-      if (v < 0.33) setActiveIndex(0);
-      else if (v < 0.66) setActiveIndex(1);
-      else setActiveIndex(2);
-    });
-  }, [scrollYProgress]);
-
-  const activeFeature = useMemo(() => Features[activeIndex], [activeIndex]);
+  const scrollToSection = (sectionId: string) => {
+    const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement | number, options?: { offset?: number; duration?: number }) => void } }).lenis;
+    
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        if (lenis) {
+          lenis.scrollTo(element, { offset: -100, duration: 1.5 });
+        } else {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }, 100);
+  };
 
   return (
-    <section id="about" ref={sectionRef} className={isMobile ? "relative min-h-screen" : "relative h-[400vh]"}>
-      <div className={isMobile ? "w-full bg-background py-12" : "sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-background"}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl h-full md:h-auto flex items-center">
-          <div className="relative mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center justify-center w-full">
-            {/* Central Circle */}
-            <div
-              className="relative mx-auto rounded-full w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 shadow-2xl p-5 sm:p-6 md:p-10 flex flex-col items-center justify-center flex-shrink-0"
-              style={{
-                background: `radial-gradient(circle at center, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%)`,
-                backdropFilter: "blur(20px)",
-                border: "1px solid rgba(245, 158, 11, 0.3)",
-              }}
-            >
-              <div
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background: `conic-gradient(from 0deg, var(--primary), var(--chart-2), var(--chart-3), var(--chart-4), var(--primary))`,
-                  padding: "3px",
-                }}
+    <section id="about" className="relative w-full bg-white py-20 md:py-28">
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        {/* Section Header */}
+        <div className="text-center mb-16 md:mb-20">
+          <p className="text-sm md:text-base font-bold text-gray-600 tracking-widest mb-3 uppercase">
+            Why Choose
+          </p>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 tracking-tight mb-4 uppercase">
+            STERIVIO
+          </h2>
+          <div className="w-24 h-1 bg-cyan-500 mx-auto mb-4" />
+          <p className="text-sm md:text-base font-semibold text-gray-600 tracking-wide uppercase">
+            Precision Instruments
+          </p>
+        </div>
+
+        {/* Two Column Layout */}
+        <div className="grid lg:grid-cols-5 gap-8 items-stretch mb-16">
+          {/* Left Side - Features (Takes 2 columns) */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-2 space-y-6 flex flex-col"
+          >
+            {Features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-white border-2 border-gray-200 rounded-lg p-8 hover:border-cyan-500 transition-colors duration-300 flex-1"
               >
-                <div
-                  className="w-full h-full rounded-full"
-                  style={{
-                    background: `radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%)`,
-                  }}
+                <div className="flex items-start gap-5">
+                  <div className="flex-shrink-0 bg-gray-100 rounded-lg w-16 h-16 flex items-center justify-center">
+                    <feature.Icon className="w-8 h-8 text-cyan-500" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-black text-gray-900 mb-3 uppercase tracking-tight">
+                      {feature.title}
+                    </h3>
+                    <p className="text-base text-gray-700 leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Right Side - Featured Products (Takes 3 columns) */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-3 flex"
+          >
+            <div className="sticky top-24 w-full h-fit">
+              <div className="bg-white border-2 border-gray-200 rounded-lg p-8 hover:border-cyan-500 transition-colors duration-300 shadow-sm h-full">
+                <div className="text-center mb-8">
+                  <h3 className="text-3xl md:text-4xl font-black text-gray-900 mb-3 uppercase tracking-tight">
+                    Featured Products
+                  </h3>
+                  <div className="w-20 h-1 bg-cyan-500 mx-auto" />
+                </div>
+                
+                <AnimatedTestimonials 
+                  testimonials={popularProducts} 
+                  autoplay={true}
+                  className="!px-0 !py-0 !max-w-full"
                 />
               </div>
-
-              {/* Central Typography */}
-              <div className="relative z-10 flex flex-col items-center justify-center text-center">
-                <div className="relative space-y-1 sm:space-y-2">
-                  <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black font-serif tracking-tight text-primary"
-                  >
-                    Why Choose
-                  </motion.h2>
-                  <motion.h3
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black font-serif tracking-tighter text-primary drop-shadow-sm"
-                  >
-                    STERIVIO
-                  </motion.h3>
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "auto" }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    className="w-12 sm:w-16 md:w-20 h-0.5 md:h-1 bg-primary mx-auto rounded-full opacity-80"
-                  />
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                    className="text-[10px] sm:text-xs font-medium font-sans text-accent-foreground tracking-wide uppercase"
-                  >
-                    Precision Instruments
-                  </motion.p>
-                </div>
-              </div>
-
-              {/* Floating Icons */}
-              <FloatingIcon
-                Icon={Features[0].Icon}
-                x={icon1X}
-                y={icon1Y}
-                isActive={activeIndex === 0}
-              />
-              <FloatingIcon
-                Icon={Features[1].Icon}
-                x={icon2X}
-                y={icon2Y}
-                isActive={activeIndex === 1}
-              />
-              <FloatingIcon
-                Icon={Features[2].Icon}
-                x={icon3X}
-                y={icon3Y}
-                isActive={activeIndex === 2}
-              />
             </div>
+          </motion.div>
+        </div>
 
-            {/* Desktop: Show animated card */}
-            <div className="hidden md:block space-y-6">
-              <FeatureCard
-                title={activeFeature.title}
-                description={activeFeature.description}
-              />
-
-              {/* CTA Buttons */}
-              <motion.div
-                // key={`buttons-${activeIndex}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex flex-col sm:flex-row gap-3"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.3)" }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group relative px-6 py-3 bg-gradient-to-r from-primary via-chart-2 to-chart-3 text-primary-foreground font-bold text-sm rounded-full shadow-xl overflow-hidden transition-all duration-300"
-                >
-                  {/* Animated background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-chart-3 via-chart-2 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  {/* Button Content */}
-                  <div className="relative flex items-center justify-center gap-2">
-                    <FileText className="w-5 h-5 group-hover:animate-bounce" />
-                    <span>View Catalog</span>
-                  </div>
-
-                  {/* Shimmer Effect */}
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                </motion.button>
-
-                <motion.button
-                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.3)" }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group relative px-6 py-3 bg-gradient-to-r from-primary via-chart-2 to-chart-3 text-primary-foreground font-bold text-sm rounded-full shadow-xl overflow-hidden transition-all duration-300"
-                >
-                  {/* Animated background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-chart-3 via-chart-2 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  {/* Button Content */}
-                  <div className="relative flex items-center justify-center gap-2">
-                    <MessageSquareQuote className="w-5 h-5 group-hover:animate-bounce" />
-                    <span>Request a Quote</span>
-                  </div>
-
-                  {/* Shimmer Effect */}
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                </motion.button>
-              </motion.div>
-            </div>
-
-            {/* Mobile: Show all features */}
-            <div className="md:hidden space-y-4 w-full">
-              {Features.map((feature, index) => (
-                <MobileFeatureCard key={index} feature={feature} index={index} />
-              ))}
-            </div>
-          </div>
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <button 
+            onClick={() => window.open('https://drive.google.com/file/d/1lyu7eBw48q_IqhyRg9EBWInAt2pUVFqI/view?usp=sharing', '_blank')}
+            className="px-10 py-4 bg-gray-900 hover:bg-gray-800 text-white font-bold text-sm rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide flex items-center gap-3"
+          >
+            <FileText className="w-5 h-5" />
+            View Catalog
+          </button>
+          <button 
+            onClick={() => scrollToSection('quote')}
+            className="px-10 py-4 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-sm rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide flex items-center gap-3"
+          >
+            <MessageSquareQuote className="w-5 h-5" />
+            Request a Quote
+          </button>
         </div>
       </div>
     </section>
   );
 }
-
-const FloatingIcon = ({ Icon, x, y, isActive }: { Icon: React.ElementType; x: MotionValue<number>; y: MotionValue<number>; isActive: boolean }) => (
-  <motion.div
-    style={{ x, y }}
-    className="absolute z-20 hidden md:block"
-    whileHover={{ scale: 1.15, rotate: 5 }}
-    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-  >
-    <div className="relative group cursor-pointer">
-      <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity" />
-      <motion.div
-        className="relative bg-gradient-to-br from-background to-accent rounded-full w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 shadow-xl border-2 border-border flex items-center justify-center"
-        animate={{
-          boxShadow: isActive
-            ? "0 20px 50px -12px rgba(245, 158, 11, 0.5)"
-            : "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-          scale: isActive ? 1.1 : 1,
-        }}
-        transition={{ duration: 0.3 }}
-      >
-        <Icon className="w-6 h-6 md:w-7 md:h-7 lg:w-9 lg:h-9 text-primary" />
-      </motion.div>
-    </div>
-  </motion.div>
-);
-
-const FeatureCard = ({ title, description }: { title: string; description: string }) => (
-  <motion.div
-    key={title}
-    initial={{ opacity: 0, x: 20 }}
-    animate={{ opacity: 1, x: 0 }}
-    exit={{ opacity: 0, x: -20 }}
-    transition={{ duration: 0.5 }}
-    className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-lg max-w-xl"
-  >
-    <h3 className="text-xl md:text-2xl font-bold font-sans text-foreground mb-3 md:mb-4">{title}</h3>
-    <motion.p
-      className="text-sm md:text-base font-sans text-muted-foreground leading-relaxed"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.1 }}
-    >
-      {description}
-    </motion.p>
-  </motion.div>
-);
-
-const MobileFeatureCard = ({ feature, index }: { feature: typeof Features[0]; index: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-50px" }}
-    transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="bg-card rounded-xl p-4 border border-border shadow-md"
-  >
-    <div className="flex items-start gap-3">
-      <motion.div
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
-        className="flex-shrink-0 bg-accent rounded-full p-2.5 shadow-md border border-border"
-      >
-        <feature.Icon className="w-6 h-6 text-primary" />
-      </motion.div>
-      <div className="flex-1">
-        <motion.h3
-          initial={{ opacity: 0, x: -10 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
-          className="text-lg font-bold font-sans text-foreground mb-1.5"
-        >
-          {feature.title}
-        </motion.h3>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
-          className="text-xs leading-relaxed font-sans text-muted-foreground"
-        >
-          {feature.description}
-        </motion.p>
-      </div>
-    </div>
-  </motion.div>
-);

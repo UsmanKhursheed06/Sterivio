@@ -58,7 +58,7 @@ export const AnimatedTestimonials = ({
       <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
         <div>
           <div className="relative h-80 w-full">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="sync">
               {testimonials.map((testimonial, index) => {
                 // Only render active and adjacent images for performance
                 const shouldRender = Math.abs(index - active) <= 1 || 
