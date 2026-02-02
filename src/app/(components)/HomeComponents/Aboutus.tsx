@@ -7,17 +7,17 @@ import { motion } from "framer-motion";
 const Features = [
   {
     title: "Quality Engineering",
-    description: "Crafted from medical-grade stainless steel, Sterivio's veterinary and grooming instruments deliver precise performance and long-term durability trusted by professionals worldwide.",
+   // description: "Crafted from medical-grade stainless steel, Sterivio's veterinary and grooming instruments deliver precise performance and long-term durability trusted by professionals worldwide.",
     Icon: CheckCircle,
   },
   {
     title: "Precision Assurance",
-    description: "Each instrument undergoes a multi-stage inspection and quality-control process to ensure accuracy, balance, and consistency before shipment.",
+    //description: "Each instrument undergoes a multi-stage inspection and quality-control process to ensure accuracy, balance, and consistency before shipment.",
     Icon: ClipboardCheck,
   },
   {
     title: "Global Fulfillment",
-    description: "With U.S.-based distribution and worldwide export capability, Sterivio guarantees reliable delivery and compliance for clinics, hospitals, and grooming facilities.",
+    //description: "With U.S.-based distribution and worldwide export capability, Sterivio guarantees reliable delivery and compliance for clinics, hospitals, and grooming facilities.",
     Icon: Globe,
   },
 ];
@@ -97,9 +97,9 @@ export default function Aboutus() {
                     <h3 className="text-2xl font-black text-gray-900 mb-3 uppercase tracking-tight">
                       {feature.title}
                     </h3>
-                    <p className="text-base text-gray-700 leading-relaxed">
+                    {/* <p className="text-base text-gray-700 leading-relaxed">
                       {feature.description}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </motion.div>
