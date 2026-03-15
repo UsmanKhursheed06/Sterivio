@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { rafThrottle } from "@/lib/performance-utils";
 
@@ -15,8 +16,17 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const sectionsRef = useRef<{ id: string; offsetTop: number; offsetHeight: number }[]>([]);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const scrollToSection = (sectionId: string) => {
+    if (pathname !== "/") {
+      const target = sectionId === "hero" ? "/" : `/#${sectionId}`;
+      router.push(target);
+      setIsOpen(false);
+      return;
+    }
+
     const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement | number, options?: { offset?: number; duration?: number }) => void } }).lenis;
     
     // If clicking hero, just scroll to top
@@ -82,6 +92,12 @@ export default function Navbar() {
   };
 
   const scrollToQuote = () => {
+    if (pathname !== "/") {
+      router.push("/#quote");
+      setIsOpen(false);
+      return;
+    }
+
     const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement | number, options?: { offset?: number; duration?: number }) => void } }).lenis;
     
     // If we're at the top and hero is not expanded, expand it first
@@ -134,6 +150,10 @@ export default function Navbar() {
 
   // Track active section on scroll - optimized with RAF throttling
   useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
+
     // Cache section positions on mount and window resize
     const cacheSectionPositions = () => {
       const sections = ["hero", "about", "products", "quote"];
@@ -172,7 +192,7 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full bg-white/70 shadow-lg backdrop-blur-md border-b border-gray-200/50">
