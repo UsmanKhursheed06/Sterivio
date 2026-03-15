@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle, ClipboardCheck, Globe, FileText, MessageSquareQuote } from "lucide-react";
+import { CheckCircle, ClipboardCheck, Globe, MessageSquareQuote } from "lucide-react";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import { motion } from "framer-motion";
 

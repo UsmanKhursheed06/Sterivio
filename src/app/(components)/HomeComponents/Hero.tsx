@@ -1,10 +1,9 @@
 'use client';
 
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef } from "react";
 
 const Hero = memo(function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const scrollToQuote = () => {
     const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement | number, options?: { offset?: number; duration?: number }) => void } }).lenis;
@@ -59,7 +58,6 @@ const Hero = memo(function Hero() {
 
     // Also try on loadeddata event
     video.addEventListener('loadeddata', () => {
-      setIsLoaded(true);
       playVideo();
     });
 

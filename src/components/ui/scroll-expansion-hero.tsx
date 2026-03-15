@@ -45,7 +45,7 @@ const  ScrollExpandMedia = ({mediaSrc, bgImageSrc, title, date, scrollToExpand, 
 
   useEffect(() => {
     // Subscribe to changes
-    const unsubscribe = scrollYProgress.on("change", (v) => {
+    const unsubscribe = scrollYProgress.on("change", () => {
       // console.log("Section progress:", v); // 0 to 1
     });
 

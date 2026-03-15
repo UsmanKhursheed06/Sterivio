@@ -15,15 +15,13 @@ interface DestinationCardProps extends React.HTMLAttributes<HTMLDivElement> {
 const DestinationCard = React.forwardRef<HTMLDivElement, DestinationCardProps>(
   ({ className, imageUrl, location, flag, stats, href, themeColor, ...props }, ref) => {
     const safeImageUrl = encodeURI(imageUrl);
+    const themeStyle = { "--theme-color": themeColor } as React.CSSProperties & Record<"--theme-color", string>;
 
     return (
       // The 'group' class enables hover effects on child elements
       <div
         ref={ref}
-        style={{
-          // @ts-ignore - CSS custom properties are valid
-          "--theme-color": themeColor,
-        } as React.CSSProperties}
+        style={themeStyle}
         className={cn("group w-full h-full", className)}
         {...props}
       >
