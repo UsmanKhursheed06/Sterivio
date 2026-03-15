@@ -14,6 +14,8 @@ interface DestinationCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const DestinationCard = React.forwardRef<HTMLDivElement, DestinationCardProps>(
   ({ className, imageUrl, location, flag, stats, href, themeColor, ...props }, ref) => {
+    const safeImageUrl = encodeURI(imageUrl);
+
     return (
       // The 'group' class enables hover effects on child elements
       <div
@@ -39,7 +41,7 @@ const DestinationCard = React.forwardRef<HTMLDivElement, DestinationCardProps>(
           <div
             className="absolute inset-0 bg-cover bg-center 
                        transition-transform duration-500 ease-in-out group-hover:scale-110"
-            style={{ backgroundImage: `url(${imageUrl})` }}
+            style={{ backgroundImage: `url('${safeImageUrl}')` }}
           />
 
           {/* Themed Gradient Overlay */}

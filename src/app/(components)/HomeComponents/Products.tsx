@@ -35,10 +35,10 @@ const Products = memo(function Products() {
             className="w-full max-w-[380px] h-[500px]"
           >
             <DestinationCard
-              imageUrl="https://images.unsplash.com/photo-1530041539828-114de669390e?q=80&w=1887"
+              imageUrl="/Veterinary card.jpg"
               location="Veterinary Products"
-              flag="🏥"
-              stats="Professional medical instruments & supplies"
+              flag=""
+              stats="12 complete categories • 100+ products"
               href="/vet-products"
               themeColor="210 100% 45%"
             />
@@ -52,7 +52,7 @@ const Products = memo(function Products() {
             className="w-full max-w-[380px] h-[500px]"
           >
             <DestinationCard
-              imageUrl="https://images.unsplash.com/photo-1548681528-6a5c45b66b42?q=80&w=1887"
+              imageUrl="/Grooming card.jpg"
               location="Grooming Products"
               flag="✂️"
               stats="14 complete categories • 100+ products"

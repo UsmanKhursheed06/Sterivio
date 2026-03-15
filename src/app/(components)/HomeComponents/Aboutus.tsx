@@ -135,13 +135,7 @@ export default function Aboutus() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button 
-            onClick={() => window.open('https://drive.google.com/file/d/1lyu7eBw48q_IqhyRg9EBWInAt2pUVFqI/view?usp=sharing', '_blank')}
-            className="px-10 py-4 bg-gray-900 hover:bg-gray-800 text-white font-bold text-sm rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide flex items-center gap-3"
-          >
-            <FileText className="w-5 h-5" />
-            View Catalog
-          </button>
+         
           <button 
             onClick={() => scrollToSection('quote')}
             className="px-10 py-4 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-sm rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide flex items-center gap-3"
