@@ -71,7 +71,7 @@ const  ScrollExpandMedia = ({mediaSrc, bgImageSrc, title, date, scrollToExpand, 
             alt="Background"
             width={1920}
             height={1080}
-            className="w-screen h-screen"
+            className="h-screen w-full"
             style={{
               objectFit: "cover",
               objectPosition: "center",
