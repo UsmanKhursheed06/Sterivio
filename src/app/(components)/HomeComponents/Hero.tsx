@@ -71,7 +71,7 @@ const Hero = memo(function Hero() {
   }, []);
 
   return (
-    <div id="hero" className="relative w-full h-screen overflow-hidden">
+    <div id="hero" className="relative w-full h-screen overflow-x-clip overflow-y-hidden">
       {/* Video Background */}
       <video
         ref={videoRef}
@@ -90,12 +90,12 @@ const Hero = memo(function Hero() {
       <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-white/90 via-white/50 to-transparent" />
 
       {/* Text Content - Left Side */}
-      <div className="absolute inset-0 flex items-center">
-        <div className="ml-12 md:ml-20 lg:ml-24 max-w-3xl">
+      <div className="absolute inset-0 flex items-center px-4 sm:px-8 md:px-20 lg:px-24">
+        <div className="w-full max-w-[calc(100vw-2rem)] sm:max-w-2xl md:max-w-3xl">
           <p className="text-sm md:text-base font-semibold text-gray-700 tracking-widest mb-4">
             FOR ALL YOUR
           </p>
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 leading-none mb-8 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-gray-900 leading-none mb-8 tracking-tight break-words">
             EQUIPMENT<br />NEEDS
           </h1>
           <button 

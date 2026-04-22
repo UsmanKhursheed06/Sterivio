@@ -54,7 +54,7 @@ const Products = memo(function Products() {
             <DestinationCard
               imageUrl="/Grooming card.jpg"
               location="Grooming Products"
-              flag="✂️"
+              flag=""
               stats="14 complete categories • 100+ products"
               href="/grooming-products"
               themeColor="185 75% 40%"
