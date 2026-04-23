@@ -31,20 +31,37 @@ const Requestquote = memo(function Requestquote() {
     message: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    
-    setSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
+
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/request-quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = (await response.json()) as { error?: string };
+
+      if (!response.ok) {
+        setErrorMessage(data.error || "Could not send your request. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
       setFormData({
         name: "",
         company: "",
@@ -52,8 +69,14 @@ const Requestquote = memo(function Requestquote() {
         phone: "",
         message: "",
       });
-      setSubmitted(false);
-    }, 3000);
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 3000);
+    } catch {
+      setErrorMessage("Could not send your request. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -215,20 +238,32 @@ const Requestquote = memo(function Requestquote() {
                 </div>
 
                 {/* Submit Button */}
+                {errorMessage && (
+                  <p className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    {errorMessage}
+                  </p>
+                )}
+
                 <motion.button
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  disabled={submitted}
+                  disabled={submitted || isSubmitting}
                   className={`w-full px-8 py-4 font-bold text-lg rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide flex items-center justify-center gap-3 ${
-                    submitted 
+                    submitted
                       ? 'bg-green-500 text-white' 
-                      : 'bg-cyan-500 hover:bg-cyan-600 text-white'
+                      : isSubmitting
+                        ? 'bg-cyan-400 text-white cursor-not-allowed'
+                        : 'bg-cyan-500 hover:bg-cyan-600 text-white'
                   }`}
                 >
                   {submitted ? (
                     <>
                       <span>✓ Request Sent</span>
+                    </>
+                  ) : isSubmitting ? (
+                    <>
+                      <span>Sending...</span>
                     </>
                   ) : (
                     <>

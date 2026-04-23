@@ -20,6 +20,27 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Quote Form Email Setup (Resend)
+
+The quote form submits to an API route that sends two emails:
+
+1. A quote request email to your inbox.
+2. A confirmation email to the sender.
+
+Create a `.env.local` file in the project root with:
+
+```bash
+RESEND_API_KEY=your_resend_api_key
+QUOTE_RECEIVER_EMAIL=you@yourdomain.com
+RESEND_FROM_EMAIL=Sterivio <noreply@yourdomain.com>
+```
+
+Notes:
+
+- `RESEND_FROM_EMAIL` must be a verified sender/domain in Resend for production.
+- You can test with `onboarding@resend.dev` while setting up in development.
+- API route used by the form: `/api/request-quote`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
