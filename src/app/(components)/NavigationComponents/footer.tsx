@@ -137,22 +137,22 @@ export default function Footer() {
               <Mail className="w-4 h-4 text-cyan-500" /> info@sterivio.com
             </li>
             <li className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-cyan-500" /> +92 300 1234567
+              <Phone className="w-4 h-4 text-cyan-500" /> <a href="tel:+19293995026" className="hover:text-cyan-500 transition">+1(929) 399-5026</a>
             </li>
             <li className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-cyan-500" /> Sialkot, Pakistan
+              <MapPin className="w-4 h-4 text-cyan-500" /> New York, United States
             </li>
           </ul>
 
           {/* Social Links */}
           <div className="flex gap-3 mt-6">
-            <a href="#" className="p-2 bg-gray-100 hover:bg-cyan-500 hover:text-white rounded-lg transition-colors duration-300">
+            <a href="https://www.facebook.com/share/18kyzYAZoE/" target="_blank" rel="noreferrer" aria-label="Sterivio on Facebook" className="p-2 bg-gray-100 hover:bg-cyan-500 hover:text-white rounded-lg transition-colors duration-300">
               <Facebook className="w-5 h-5" />
             </a>
-            <a href="#" className="p-2 bg-gray-100 hover:bg-cyan-500 hover:text-white rounded-lg transition-colors duration-300">
+            <a href="https://www.instagram.com/sterivio?igsh=ejhtcGJ6N3lkamh0" target="_blank" rel="noreferrer" aria-label="Sterivio on Instagram" className="p-2 bg-gray-100 hover:bg-cyan-500 hover:text-white rounded-lg transition-colors duration-300">
               <Instagram className="w-5 h-5" />
             </a>
-            <a href="#" className="p-2 bg-gray-100 hover:bg-cyan-500 hover:text-white rounded-lg transition-colors duration-300">
+            <a href="https://www.linkedin.com/company/sterivio/" target="_blank" rel="noreferrer" aria-label="Sterivio on LinkedIn" className="p-2 bg-gray-100 hover:bg-cyan-500 hover:text-white rounded-lg transition-colors duration-300">
               <Linkedin className="w-5 h-5" />
             </a>
           </div>
