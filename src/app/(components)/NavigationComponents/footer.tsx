@@ -134,7 +134,7 @@ export default function Footer() {
           <h3 className="text-lg font-black text-gray-900 mb-4 uppercase tracking-tight">Contact Us</h3>
           <ul className="space-y-3 text-sm text-gray-700">
             <li className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-cyan-500" /> info@sterivio.com
+              <Mail className="w-4 h-4 text-cyan-500" /> sales@sterivio.com
             </li>
             <li className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-cyan-500" /> <a href="tel:+19293995026" className="hover:text-cyan-500 transition">+1(929) 399-5026</a>
