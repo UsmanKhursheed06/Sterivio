@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const Features = [
   {
     title: "Quality Engineering",
-   // description: "Crafted from medical-grade stainless steel, Sterivio's veterinary and grooming instruments deliver precise performance and long-term durability trusted by professionals worldwide.",
+    // description: "Crafted from medical-grade stainless steel, Sterivio's veterinary and grooming instruments deliver precise performance and long-term durability trusted by professionals worldwide.",
     Icon: CheckCircle,
   },
   {
@@ -24,10 +24,16 @@ const Features = [
 
 const popularProducts = [
   {
-    quote: "Premium surgical scissors featuring ultra-sharp blades and ergonomic handles for precise cutting in veterinary procedures.",
-    name: "Surgical Scissors",
-    designation: "Surgical Instruments",
-    src: "/plasticsec.jpg",
+    quote: "A highly sensitive professional stethoscope designed for clear acoustic performance during cardiac and respiratory exams on animals of all sizes.",
+    name: "Veterinary Stethoscope",
+    designation: "Diagnostic Instruments",
+    src: "/vet_stethoscope.png",
+  },
+  {
+    quote: "Ergonomically designed winged dental elevators engineered for gentle yet efficient tooth extraction and periodontal procedures.",
+    name: "Veterinary Dental Elevators",
+    designation: "Dental Instruments",
+    src: "/vet_dental.png",
   },
   {
     quote: "Professional grooming shears with razor-sharp edges and comfortable grip for superior pet styling and coat maintenance.",
@@ -35,12 +41,18 @@ const popularProducts = [
     designation: "Grooming Tools",
     src: "/vetsec.jpg",
   },
+  {
+    quote: "Advanced low-noise pet nail grinder with adjustable speed settings for safe and stress-free nail trimming sessions.",
+    name: "Professional Nail Grinder",
+    designation: "Grooming Tools",
+    src: "/nail_grinder.png",
+  },
 ];
 
 export default function Aboutus() {
   const scrollToSection = (sectionId: string) => {
     const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement | number, options?: { offset?: number; duration?: number }) => void } }).lenis;
-    
+
     setTimeout(() => {
       const element = document.getElementById(sectionId);
       if (element) {
@@ -122,9 +134,9 @@ export default function Aboutus() {
                   </h3>
                   <div className="w-20 h-1 bg-cyan-500 mx-auto" />
                 </div>
-                
-                <AnimatedTestimonials 
-                  testimonials={popularProducts} 
+
+                <AnimatedTestimonials
+                  testimonials={popularProducts}
                   autoplay={true}
                   className="!px-0 !py-0 !max-w-full"
                 />
@@ -135,8 +147,8 @@ export default function Aboutus() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-         
-          <button 
+
+          <button
             onClick={() => scrollToSection('quote')}
             className="px-10 py-4 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-sm rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide flex items-center gap-3"
           >
