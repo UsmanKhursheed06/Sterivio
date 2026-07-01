@@ -30,7 +30,7 @@ const vetCategories: VetCategory[] = [
       "Minor Instruments",
       "Tungsten Carbide Instruments",
     ],
-    catalogUrl: "https://drive.google.com/file/d/14FemdwndvFzoy-ZcPRKV5FBchhIgWi1k/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/1Vfm_i3PxzdXGGdKYCElD53c6eAWyS5ZF/view?usp=sharing",
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ const vetCategories: VetCategory[] = [
       "Major Surgical Retraction",
       "Specialty Soft Tissue Tools",
     ],
-    catalogUrl: "https://drive.google.com/file/d/1u35XEjOwYW81gXGJoK-E_0osvtlWpaLR/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/196tS5xOCmCKj3Te8TLLbUWZdJEE7at3o/view?usp=sharing",
   },
   {
     id: 3,
@@ -59,7 +59,7 @@ const vetCategories: VetCategory[] = [
       "Rotary / Prophy",
       "Operative & Endodontic",
     ],
-    catalogUrl: "https://drive.google.com/file/d/18SMBiNb4p1TXyagCgwfgna0XfVHkp_yK/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/1X4LnDb-t05yQw1y6DZudi7s7atdDSmxF/view?usp=sharing",
   },
   {
     id: 4,
@@ -75,7 +75,7 @@ const vetCategories: VetCategory[] = [
       "Drilling & Osteosynthesis",
       "TPLO / TTA Systems",
     ],
-    catalogUrl: "https://drive.google.com/file/d/1Q3D51rrYXfeNUt2hJCc5kTZvKOq80bJ2/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/1B9PQQgpdknKjtDR2ZV24sBfNNuaKRdxv/view?usp=sharing",
   },
   {
     id: 5,
@@ -89,7 +89,7 @@ const vetCategories: VetCategory[] = [
       "Neuro Retractors & Systems",
       "Hooks & Dissectors",
     ],
-    catalogUrl: "https://drive.google.com/file/d/1qiDaQYlpNWph_KcwyDVZ0AU5-YNcxoEm/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/12z3iKUtwuAIcqjmZ1GVp9bkr25D2KuZe/view?usp=sharing",
   },
   {
     id: 6,
@@ -102,7 +102,7 @@ const vetCategories: VetCategory[] = [
       "Ophthalmic Forceps",
       "Probes & Cannulas",
     ],
-    catalogUrl: "https://drive.google.com/file/d/1iqdKOEaIpi0ExJT-GwXc2v1diy_NgHWr/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/1bQHQ3S-pKvFjQs3Nwmopu4XCQgRXt-Yv/view?usp=sharing",
   },
   {
     id: 7,
@@ -116,7 +116,7 @@ const vetCategories: VetCategory[] = [
       "Hoof Care",
       "Field & Farm Tools",
     ],
-    catalogUrl: "https://drive.google.com/file/d/1PIHx5Nklkc_aGF-De2pk3tmWDKstqzRX/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/1JcI4XuAhen36XPvUDUO-mSyygJy2Pp2p/view?usp=sharing",
   },
   {
     id: 8,
@@ -128,7 +128,7 @@ const vetCategories: VetCategory[] = [
       "Packaging & Indicators",
       "Sterilization Accessories",
     ],
-    catalogUrl: "https://drive.google.com/file/d/1V9Gk11lhyeBjvvOo_Ao-3ThipNuUo3Jk/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/1H5CkSjPrAfHH0s1xZSUcmfMl7dTUv2ac/view?usp=sharing",
   },
   {
     id: 9,
@@ -141,7 +141,7 @@ const vetCategories: VetCategory[] = [
       "Point-of-Care Testing",
       "Clinic Utility Instruments",
     ],
-    catalogUrl: "https://drive.google.com/file/d/1R4gMD5iyc_Z7dsfbuzfRabdTfUOOL4UJ/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/1ARRtJfxHPNqV_OG5q32QqKV3alU3Fjtr/view?usp=sharing",
   },
   {
     id: 10,
@@ -154,7 +154,7 @@ const vetCategories: VetCategory[] = [
       "Injection & Infusion Support",
       "Anesthesia Accessories",
     ],
-    catalogUrl: "https://drive.google.com/file/d/19171oM8hQJ5QMDOTiO61TInJ2oaBbcOk/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/1f5APdHCMtIfmlI55YsXVW4_QZcL4m4wm/view?usp=sharing",
   },
   {
     id: 11,
@@ -165,7 +165,7 @@ const vetCategories: VetCategory[] = [
       "Recovery & Protective Restraint",
       "Table & Positioning Support",
     ],
-    catalogUrl: "https://drive.google.com/file/d/1lZdHSfKLvyBxhWqYXqzsJ7GPw4xcmXvj/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/1jALuOwu5YGZUey-gUYBRiHALttWH9mP-/view?usp=sharing",
   },
   {
     id: 12,
@@ -179,11 +179,11 @@ const vetCategories: VetCategory[] = [
       "Large Animal & Field Kits",
       "Starter & Training Kits",
     ],
-    catalogUrl: "https://drive.google.com/file/d/1zKHPbbf21BR4KOx2zDmNP2YhgyL5qHh0/view?usp=sharing",
+    catalogUrl: "https://drive.google.com/file/d/18sWa6EdMT4We3Lkjiq8PA-GetxTQDm51/view?usp=sharing",
   },
 ];
 
-const CATALOG_PDF_URL = "https://drive.google.com/file/d/1Czo0EkcgtoFSROtWAddZb2q_Esg6D1rm/view?usp=sharing";
+const CATALOG_PDF_URL = "https://drive.google.com/file/d/1fqifzgvKpocvD6P3g7ZyqPo5iKm5xXEV/view?usp=sharing";
 const GROOMING_PRODUCTS_PATH = "/grooming-products";
 
 const VetProductsPage = memo(function VetProductsPage() {

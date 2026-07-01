@@ -26,7 +26,7 @@ const groomingCategories: GroomingCategory[] = [
       "Chunkers & Specialty Shears",
       "Safety & Detail Scissors"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1Lf6gxIm--9XjqI4nVml3ghBUJW5JvgpC/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/16EvcSfA0hc2g3rwLL4NfbyUR-Chs5_dS/view?usp=sharing"
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ const groomingCategories: GroomingCategory[] = [
       "Specialty Blades & Guards",
       "Clipper Maintenance"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1ohU3wJ6c_-bABImFhhKH1t7QCXTh3BT2/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1uoteDfMAFToq4VzCvs4W3gjMQIyLagSL/view?usp=sharing"
   },
   {
     id: 3,
@@ -51,7 +51,7 @@ const groomingCategories: GroomingCategory[] = [
       "Undercoat & Shedding Tools",
       "Specialty Coat Tools"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1Ep2WEQ751eXmistt6Xc2jrS5pJXxqjvl/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/119QeEwMa7M8J6rRxVrrlKcb3j3xo66ia/view?usp=sharing"
   },
   {
     id: 4,
@@ -63,7 +63,7 @@ const groomingCategories: GroomingCategory[] = [
       "Dematting Tools",
       "Hand-Stripping & Heavy Undercoat Tools"
     ],
-    catalogUrl: "https://drive.google.com/file/d/18wXwY5KwDcW8eOI7xXDC3-fUUtLGoZEf/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1oQGjnlS0vqe38rp1oWW8qz9d8YH1uBVJ/view?usp=sharing"
   },
   {
     id: 5,
@@ -74,7 +74,7 @@ const groomingCategories: GroomingCategory[] = [
       "Nail Grinding & Finishing",
       "Hemostasis & Nail Safety"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1BBX5rsM_Etz8qI20cK7MhgHdhR4YydxQ/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/10MV1h8w_ipNuB21dYt4x5wml6mTsOzwY/view?usp=sharing"
   },
   {
     id: 6,
@@ -86,7 +86,7 @@ const groomingCategories: GroomingCategory[] = [
       "General Hygiene Tools",
       "Optional Consumables"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1y3nmhgNz9BLBTIcVlkFDl6Q2i7thXvcT/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1JBwW7NsPhMvIfMK40FVQNnIGBu_hCSyW/view?usp=sharing"
   },
   {
     id: 7,
@@ -97,7 +97,7 @@ const groomingCategories: GroomingCategory[] = [
       "Drying Equipment",
       "Water Control Accessories"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1NuEcdwRQqQEhevCY3roQbugBnI_6iE5g/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1qa00Xpg9hVAJhZgGzWj_0gR2eEtdTr-g/view?usp=sharing"
   },
   {
     id: 8,
@@ -106,7 +106,7 @@ const groomingCategories: GroomingCategory[] = [
     subcategories: [
       "Professional Grooming Tubs"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1bfuUFgzD_OFpZP6H0CcAM4wZ_sgcGjWU/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1jf5HIYa_HHNV-2tUGtnYPIdBhvM2_QBq/view?usp=sharing"
   },
   {
     id: 9,
@@ -117,7 +117,7 @@ const groomingCategories: GroomingCategory[] = [
       "Table-Mounted Restraint Systems",
       "Muzzles & Harness Restraints"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1Dp2eKJjDpryRyHmpgNDbRd3gjKfsF_tA/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1qkUUc-K31TjwRJFt4NoXrnwWhUh6tlKL/view?usp=sharing"
   },
   {
     id: 10,
@@ -127,7 +127,7 @@ const groomingCategories: GroomingCategory[] = [
       "Grooming Tables",
       "Table Accessories"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1qR8R39yNGm2RwM-GVptiMVL4zG-BPxKX/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1JcqpidV5TxqYwD3AEU8wNwxNOKbsVSci/view?usp=sharing"
   },
   {
     id: 11,
@@ -136,7 +136,7 @@ const groomingCategories: GroomingCategory[] = [
     subcategories: [
       "Oral Care Instruments"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1_5Le7uK-4UWV_9H3dh0Q8AaB7pppeWOU/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1ODswMEj4A2EU3GwGaYG4aL6wDa8vI5Ta/view?usp=sharing"
   },
   {
     id: 12,
@@ -146,7 +146,7 @@ const groomingCategories: GroomingCategory[] = [
       "Groomer Safety & Apparel",
       "Parasite & Safety Tools"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1mfNHJP-WogdeLnhAbGmM7cYt-sq9lPxw/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1a1UFiOu8LaUAWzIXY4GOmJYWlNblbFPo/view?usp=sharing"
   },
   {
     id: 13,
@@ -157,7 +157,7 @@ const groomingCategories: GroomingCategory[] = [
       "Storage & Organization",
       "Disinfection & Support"
     ],
-    catalogUrl: "https://drive.google.com/file/d/16TtDvr0sHhKvbz1D0XarTQcHD3r5YDab/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1FN9E9jxHpQM9e_YfGqO0POu_6Qt6JzlL/view?usp=sharing"
   },
   {
     id: 14,
@@ -168,11 +168,11 @@ const groomingCategories: GroomingCategory[] = [
       "Specialty Grooming Kits",
       "Procedure-Specific Kits"
     ],
-    catalogUrl: "https://drive.google.com/file/d/1CBVPH0cArnT5BTNGpNceYBWcfeGgLP0c/view?usp=sharing"
+    catalogUrl: "https://drive.google.com/file/d/1LTBYW04BDv4_iq8hOI8ZA63EWDmEWUmG/view?usp=sharing"
   }
 ];
 
-const CATALOG_PDF_URL = "https://drive.google.com/file/d/1lyu7eBw48q_IqhyRg9EBWInAt2pUVFqI/view?usp=sharing";
+const CATALOG_PDF_URL = "https://drive.google.com/file/d/1_bWjxw76NpqFDmHm-VoLRR-2YwcX2-O-/view?usp=sharing";
 const VET_PRODUCTS_PATH = "/vet-products";
 
 const GroomingProductsPage = memo(function GroomingProductsPage() {
