@@ -21,18 +21,21 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
 
     lenisRef.current = lenis;
 
+    let rafId: number;
+
     // Animation frame for Lenis
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     // Expose lenis instance globally for navigation
     (window as unknown as { lenis: typeof lenis }).lenis = lenis;
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
       delete (window as unknown as { lenis?: typeof lenis }).lenis;
     };

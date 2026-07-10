@@ -7,17 +7,14 @@ import { motion } from "framer-motion";
 const Features = [
   {
     title: "Quality Engineering",
-    // description: "Crafted from medical-grade stainless steel, Sterivio's veterinary and grooming instruments deliver precise performance and long-term durability trusted by professionals worldwide.",
     Icon: CheckCircle,
   },
   {
     title: "Precision Assurance",
-    //description: "Each instrument undergoes a multi-stage inspection and quality-control process to ensure accuracy, balance, and consistency before shipment.",
     Icon: ClipboardCheck,
   },
   {
     title: "Global Fulfillment",
-    //description: "With U.S.-based distribution and worldwide export capability, Sterivio guarantees reliable delivery and compliance for clinics, hospitals, and grooming facilities.",
     Icon: Globe,
   },
 ];
@@ -109,9 +106,6 @@ export default function Aboutus() {
                     <h3 className="text-2xl font-black text-gray-900 mb-3 uppercase tracking-tight">
                       {feature.title}
                     </h3>
-                    {/* <p className="text-base text-gray-700 leading-relaxed">
-                      {feature.description}
-                    </p> */}
                   </div>
                 </div>
               </motion.div>
@@ -147,7 +141,6 @@ export default function Aboutus() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-
           <button
             onClick={() => scrollToSection('quote')}
             className="px-10 py-4 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-sm rounded-md shadow-md hover:shadow-lg transition-all duration-300 uppercase tracking-wide flex items-center gap-3"

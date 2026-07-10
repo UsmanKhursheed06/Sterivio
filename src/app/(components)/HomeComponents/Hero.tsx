@@ -7,7 +7,7 @@ const Hero = memo(function Hero() {
 
   const scrollToQuote = () => {
     const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement | number, options?: { offset?: number; duration?: number }) => void } }).lenis;
-    
+
     if (window.scrollY < 10) {
       const expandFunc = (window as unknown as { expandHeroAndNavigate?: (callback: () => void) => void }).expandHeroAndNavigate;
       if (expandFunc) {
@@ -26,7 +26,7 @@ const Hero = memo(function Hero() {
         return;
       }
     }
-    
+
     setTimeout(() => {
       const element = document.getElementById("quote");
       if (element) {
@@ -47,9 +47,8 @@ const Hero = memo(function Hero() {
       try {
         video.muted = true;
         await video.play();
-        console.log("Video playing successfully");
-      } catch (error) {
-        console.error("Error playing video:", error);
+      } catch {
+        // Autoplay blocked by browser policy — silent fail, video stays paused
       }
     };
 
@@ -57,17 +56,17 @@ const Hero = memo(function Hero() {
     playVideo();
 
     // Also try on loadeddata event
-    video.addEventListener('loadeddata', () => {
-      playVideo();
-    });
+    const onLoadedData = () => playVideo();
+    video.addEventListener('loadeddata', onLoadedData);
 
-    // And on user interaction
-    const handleUserInteraction = () => {
-      playVideo();
-      document.removeEventListener('click', handleUserInteraction);
-    };
+    // And on first user interaction
+    const handleUserInteraction = () => playVideo();
     document.addEventListener('click', handleUserInteraction, { once: true });
 
+    return () => {
+      video.removeEventListener('loadeddata', onLoadedData);
+      document.removeEventListener('click', handleUserInteraction);
+    };
   }, []);
 
   return (
@@ -98,7 +97,7 @@ const Hero = memo(function Hero() {
           <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-gray-900 leading-none mb-8 tracking-tight break-words">
             EQUIPMENT<br />NEEDS
           </h1>
-          <button 
+          <button
             onClick={scrollToQuote}
             className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-sm md:text-base px-10 py-4 rounded shadow-lg transition-all duration-200 hover:shadow-xl uppercase tracking-wide"
           >

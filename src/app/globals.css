@@ -142,14 +142,11 @@
 
 body {
   font-family: var(--font-sans);
+  overflow-x: clip;
 }
 
 html {
   scroll-behavior: smooth;
-  overflow-x: clip;
-}
-
-body {
   overflow-x: clip;
 }
 
@@ -164,4 +161,28 @@ button {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Cool Scrollbar utility for chat widget */
+.cool-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cool-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cool-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.25);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cool-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+.cool-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.25) transparent;
 }
