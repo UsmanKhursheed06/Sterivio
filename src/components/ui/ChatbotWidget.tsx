@@ -102,10 +102,10 @@ export default function ChatbotWidget() {
         prev.map((m) =>
           m.id === botMessageId
             ? {
-                ...m,
-                content:
-                  "I apologize, but I encountered an error connecting to the service. Please try again in a moment.",
-              }
+              ...m,
+              content:
+                "I apologize, but I encountered an error connecting to the service. Please try again in a moment.",
+            }
             : m
         )
       );
@@ -132,7 +132,7 @@ export default function ChatbotWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end font-sans">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end font-sans">
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
@@ -141,7 +141,7 @@ export default function ChatbotWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="mb-4 w-[380px] sm:w-[420px] h-[580px] bg-slate-900/95 border border-slate-800 text-white rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-lg"
+            className="mb-4 w-[calc(100vw-2rem)] sm:w-[420px] max-w-[420px] h-[580px] max-h-[calc(100vh-120px)] bg-slate-900/95 border border-slate-800 text-white rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-lg"
           >
             {/* Header */}
             <div className="p-4 bg-gradient-to-r from-slate-950 to-slate-900 border-b border-slate-800 flex items-center justify-between">
@@ -193,11 +193,10 @@ export default function ChatbotWidget() {
                       </div>
                     )}
                     <div
-                      className={`max-w-[75%] p-3 rounded-2xl text-sm leading-relaxed ${
-                        isBot
+                      className={`max-w-[75%] p-3 rounded-2xl text-sm leading-relaxed ${isBot
                           ? "bg-slate-800/80 border border-slate-700/50 text-slate-100 rounded-tl-none"
                           : "bg-blue-600 text-white rounded-tr-none shadow-md"
-                      }`}
+                        }`}
                     >
                       {/* Render text with basic markdown/bullet lines */}
                       <div className="whitespace-pre-wrap font-sans">
@@ -282,11 +281,10 @@ export default function ChatbotWidget() {
                   <button
                     onClick={() => handleSend(input)}
                     disabled={!input.trim() || isLoading}
-                    className={`p-1.5 rounded-lg flex items-center justify-center transition-all ${
-                      input.trim() && !isLoading
+                    className={`p-1.5 rounded-lg flex items-center justify-center transition-all ${input.trim() && !isLoading
                         ? "bg-blue-600 hover:bg-blue-500 text-white cursor-pointer"
                         : "bg-slate-800 text-slate-500 cursor-not-allowed"
-                    }`}
+                      }`}
                   >
                     <Send className="w-4 h-4" />
                   </button>
@@ -294,7 +292,7 @@ export default function ChatbotWidget() {
               </div>
               <div className="mt-1.5 text-center">
                 <span className="text-[9px] text-slate-500">
-                  Powered by Pinecone RAG & OpenAI Embeddings
+                  Your personal assistant
                 </span>
               </div>
             </div>
